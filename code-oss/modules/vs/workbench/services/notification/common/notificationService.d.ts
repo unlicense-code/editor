@@ -1,0 +1,30 @@
+import { INotificationService, INotification, INotificationHandle, Severity, NotificationMessage, IPromptChoice, IPromptOptions, IStatusMessageOptions } from 'vs/platform/notification/common/notification';
+import { NotificationsModel } from 'vs/workbench/common/notifications';
+import { Disposable, IDisposable } from 'vs/base/common/lifecycle';
+import { Event } from 'vs/base/common/event';
+import { IStorageService } from 'vs/platform/storage/common/storage';
+export declare class NotificationService extends Disposable implements INotificationService {
+    private readonly storageService;
+    readonly _serviceBrand: undefined;
+    readonly model: NotificationsModel;
+    private readonly _onDidAddNotification;
+    readonly onDidAddNotification: Event<INotification>;
+    private readonly _onDidRemoveNotification;
+    readonly onDidRemoveNotification: Event<INotification>;
+    private readonly _onDidChangeDoNotDisturbMode;
+    readonly onDidChangeDoNotDisturbMode: Event<void>;
+    constructor(storageService: IStorageService);
+    private registerListeners;
+    static readonly DND_SETTINGS_KEY = "notifications.doNotDisturbMode";
+    private _doNotDisturbMode;
+    get doNotDisturbMode(): boolean;
+    set doNotDisturbMode(enabled: boolean);
+    private updateDoNotDisturbFilters;
+    info(message: NotificationMessage | NotificationMessage[]): void;
+    warn(message: NotificationMessage | NotificationMessage[]): void;
+    error(message: NotificationMessage | NotificationMessage[]): void;
+    notify(notification: INotification): INotificationHandle;
+    private toStorageScope;
+    prompt(severity: Severity, message: string, choices: IPromptChoice[], options?: IPromptOptions): INotificationHandle;
+    status(message: NotificationMessage, options?: IStatusMessageOptions): IDisposable;
+}

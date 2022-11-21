@@ -1,0 +1,46 @@
+import { IJSONSchema, IJSONSchemaMap, IJSONSchemaSnippet } from 'vs/base/common/jsonSchema';
+import { IWorkspaceFolder } from 'vs/platform/workspace/common/workspace';
+import { IConfig, IDebuggerContribution, IDebugAdapter, IDebugger, IDebugSession, IAdapterManager, IDebugService, IDebuggerMetadata } from 'vs/workbench/contrib/debug/common/debug';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IConfigurationResolverService } from 'vs/workbench/services/configurationResolver/common/configurationResolver';
+import { ITextResourcePropertiesService } from 'vs/editor/common/services/textResourceConfiguration';
+import { IExtensionDescription } from 'vs/platform/extensions/common/extensions';
+import { ITelemetryEndpoint } from 'vs/platform/telemetry/common/telemetry';
+import { IWorkbenchEnvironmentService } from 'vs/workbench/services/environment/common/environmentService';
+import { ContextKeyExpression, IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+export declare class Debugger implements IDebugger, IDebuggerMetadata {
+    private adapterManager;
+    private readonly configurationService;
+    private readonly resourcePropertiesService;
+    private readonly configurationResolverService;
+    private readonly environmentService;
+    private readonly debugService;
+    private readonly contextKeyService;
+    private debuggerContribution;
+    private mergedExtensionDescriptions;
+    private mainExtensionDescription;
+    private debuggerWhen;
+    constructor(adapterManager: IAdapterManager, dbgContribution: IDebuggerContribution, extensionDescription: IExtensionDescription, configurationService: IConfigurationService, resourcePropertiesService: ITextResourcePropertiesService, configurationResolverService: IConfigurationResolverService, environmentService: IWorkbenchEnvironmentService, debugService: IDebugService, contextKeyService: IContextKeyService);
+    merge(otherDebuggerContribution: IDebuggerContribution, extensionDescription: IExtensionDescription): void;
+    startDebugging(configuration: IConfig, parentSessionId: string): Promise<boolean>;
+    createDebugAdapter(session: IDebugSession): Promise<IDebugAdapter>;
+    substituteVariables(folder: IWorkspaceFolder | undefined, config: IConfig): Promise<IConfig>;
+    runInTerminal(args: DebugProtocol.RunInTerminalRequestArguments, sessionId: string): Promise<number | undefined>;
+    get label(): string;
+    get type(): string;
+    get variables(): {
+        [key: string]: string;
+    } | undefined;
+    get configurationSnippets(): IJSONSchemaSnippet[] | undefined;
+    get languages(): string[] | undefined;
+    get when(): ContextKeyExpression | undefined;
+    get enabled(): boolean;
+    get strings(): any;
+    interestedInLanguage(languageId: string): boolean;
+    hasInitialConfiguration(): boolean;
+    hasConfigurationProvider(): boolean;
+    getInitialConfigurationContent(initialConfigs?: IConfig[]): Promise<string>;
+    getMainExtensionDescriptor(): IExtensionDescription;
+    getCustomTelemetryEndpoint(): ITelemetryEndpoint | undefined;
+    getSchemaAttributes(definitions: IJSONSchemaMap): IJSONSchema[] | null;
+}

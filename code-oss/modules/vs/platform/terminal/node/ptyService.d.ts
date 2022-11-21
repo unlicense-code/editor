@@ -1,0 +1,204 @@
+import { Event } from 'vs/base/common/event';
+import { Disposable } from 'vs/base/common/lifecycle';
+import { IProcessEnvironment, OperatingSystem } from 'vs/base/common/platform';
+import { URI } from 'vs/base/common/uri';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IProcessDataEvent, IProcessReadyEvent, IPtyService, IReconnectConstants, IRequestResolveVariablesEvent, IShellLaunchConfig, ITerminalLaunchError, ITerminalsLayoutInfo, TerminalIcon, IProcessProperty, TitleEventSource, ProcessPropertyType, IProcessPropertyMap, IFixedTerminalDimensions, IPersistentTerminalProcessLaunchConfig, ISerializedTerminalState, ITerminalProcessOptions } from 'vs/platform/terminal/common/terminal';
+import { IGetTerminalLayoutInfoArgs, IProcessDetails, ISetTerminalLayoutInfoArgs } from 'vs/platform/terminal/common/terminalProcess';
+import { TerminalProcess } from 'vs/platform/terminal/node/terminalProcess';
+import { IPtyHostProcessReplayEvent } from 'vs/platform/terminal/common/capabilities/capabilities';
+import { IProductService } from 'vs/platform/product/common/productService';
+export declare class PtyService extends Disposable implements IPtyService {
+    private _lastPtyId;
+    private readonly _logService;
+    private readonly _productService;
+    private readonly _reconnectConstants;
+    readonly _serviceBrand: undefined;
+    private readonly _ptys;
+    private readonly _workspaceLayoutInfos;
+    private readonly _detachInstanceRequestStore;
+    private readonly _revivedPtyIdMap;
+    private readonly _autoReplies;
+    private readonly _onHeartbeat;
+    readonly onHeartbeat: Event<void>;
+    private readonly _onProcessData;
+    readonly onProcessData: Event<{
+        id: number;
+        event: IProcessDataEvent | string;
+    }>;
+    private readonly _onProcessReplay;
+    readonly onProcessReplay: Event<{
+        id: number;
+        event: IPtyHostProcessReplayEvent;
+    }>;
+    private readonly _onProcessReady;
+    readonly onProcessReady: Event<{
+        id: number;
+        event: {
+            pid: number;
+            cwd: string;
+        };
+    }>;
+    private readonly _onProcessExit;
+    readonly onProcessExit: Event<{
+        id: number;
+        event: number | undefined;
+    }>;
+    private readonly _onProcessOrphanQuestion;
+    readonly onProcessOrphanQuestion: Event<{
+        id: number;
+    }>;
+    private readonly _onDidRequestDetach;
+    readonly onDidRequestDetach: Event<{
+        requestId: number;
+        workspaceId: string;
+        instanceId: number;
+    }>;
+    private readonly _onDidChangeProperty;
+    readonly onDidChangeProperty: Event<{
+        id: number;
+        property: IProcessProperty<any>;
+    }>;
+    constructor(_lastPtyId: number, _logService: ILogService, _productService: IProductService, _reconnectConstants: IReconnectConstants);
+    refreshIgnoreProcessNames(names: string[]): Promise<void>;
+    onPtyHostExit?: Event<number> | undefined;
+    onPtyHostStart?: Event<void> | undefined;
+    onPtyHostUnresponsive?: Event<void> | undefined;
+    onPtyHostResponsive?: Event<void> | undefined;
+    onPtyHostRequestResolveVariables?: Event<IRequestResolveVariablesEvent> | undefined;
+    requestDetachInstance(workspaceId: string, instanceId: number): Promise<IProcessDetails | undefined>;
+    acceptDetachInstanceReply(requestId: number, persistentProcessId: number): Promise<void>;
+    freePortKillProcess(port: string): Promise<{
+        port: string;
+        processId: string;
+    }>;
+    serializeTerminalState(ids: number[]): Promise<string>;
+    reviveTerminalProcesses(state: ISerializedTerminalState[], dateTimeFormatLocale: string): Promise<void>;
+    shutdownAll(): Promise<void>;
+    createProcess(shellLaunchConfig: IShellLaunchConfig, cwd: string, cols: number, rows: number, unicodeVersion: '6' | '11', env: IProcessEnvironment, executableEnv: IProcessEnvironment, options: ITerminalProcessOptions, shouldPersist: boolean, workspaceId: string, workspaceName: string, isReviving?: boolean, rawReviveBuffer?: string): Promise<number>;
+    attachToProcess(id: number): Promise<void>;
+    updateTitle(id: number, title: string, titleSource: TitleEventSource): Promise<void>;
+    updateIcon(id: number, userInitiated: boolean, icon: URI | {
+        light: URI;
+        dark: URI;
+    } | {
+        id: string;
+        color?: {
+            id: string;
+        };
+    }, color?: string): Promise<void>;
+    refreshProperty<T extends ProcessPropertyType>(id: number, type: T): Promise<IProcessPropertyMap[T]>;
+    updateProperty<T extends ProcessPropertyType>(id: number, type: T, value: IProcessPropertyMap[T]): Promise<void>;
+    detachFromProcess(id: number, forcePersist?: boolean): Promise<void>;
+    reduceConnectionGraceTime(): Promise<void>;
+    listProcesses(): Promise<IProcessDetails[]>;
+    start(id: number): Promise<ITerminalLaunchError | undefined>;
+    shutdown(id: number, immediate: boolean): Promise<void>;
+    input(id: number, data: string): Promise<void>;
+    processBinary(id: number, data: string): Promise<void>;
+    resize(id: number, cols: number, rows: number): Promise<void>;
+    getInitialCwd(id: number): Promise<string>;
+    getCwd(id: number): Promise<string>;
+    acknowledgeDataEvent(id: number, charCount: number): Promise<void>;
+    setUnicodeVersion(id: number, version: '6' | '11'): Promise<void>;
+    getLatency(id: number): Promise<number>;
+    orphanQuestionReply(id: number): Promise<void>;
+    installAutoReply(match: string, reply: string): Promise<void>;
+    uninstallAllAutoReplies(): Promise<void>;
+    uninstallAutoReply(match: string): Promise<void>;
+    getDefaultSystemShell(osOverride?: OperatingSystem): Promise<string>;
+    getEnvironment(): Promise<IProcessEnvironment>;
+    getWslPath(original: string): Promise<string>;
+    getRevivedPtyNewId(id: number): Promise<number | undefined>;
+    setTerminalLayoutInfo(args: ISetTerminalLayoutInfoArgs): Promise<void>;
+    getTerminalLayoutInfo(args: IGetTerminalLayoutInfoArgs): Promise<ITerminalsLayoutInfo | undefined>;
+    private _expandTerminalTab;
+    private _expandTerminalInstance;
+    private _buildProcessDetails;
+    private _throwIfNoPty;
+}
+export declare class PersistentTerminalProcess extends Disposable {
+    private _persistentProcessId;
+    private readonly _terminalProcess;
+    readonly workspaceId: string;
+    readonly workspaceName: string;
+    readonly shouldPersistTerminal: boolean;
+    readonly processLaunchOptions: IPersistentTerminalProcessLaunchConfig;
+    unicodeVersion: '6' | '11';
+    private readonly _logService;
+    private _icon?;
+    private _color?;
+    private readonly _bufferer;
+    private readonly _autoReplies;
+    private readonly _pendingCommands;
+    private _isStarted;
+    private _interactionState;
+    private _orphanQuestionBarrier;
+    private _orphanQuestionReplyTime;
+    private _orphanRequestQueue;
+    private _disconnectRunner1;
+    private _disconnectRunner2;
+    private readonly _onProcessReplay;
+    readonly onProcessReplay: Event<IPtyHostProcessReplayEvent>;
+    private readonly _onProcessReady;
+    readonly onProcessReady: Event<IProcessReadyEvent>;
+    private readonly _onPersistentProcessReady;
+    /** Fired when the persistent process has a ready process and has finished its replay. */
+    readonly onPersistentProcessReady: Event<void>;
+    private readonly _onProcessData;
+    readonly onProcessData: Event<string>;
+    private readonly _onProcessOrphanQuestion;
+    readonly onProcessOrphanQuestion: Event<void>;
+    private readonly _onDidChangeProperty;
+    readonly onDidChangeProperty: Event<IProcessProperty<any>>;
+    private _inReplay;
+    private _pid;
+    private _cwd;
+    private _title;
+    private _titleSource;
+    private _serializer;
+    private _wasRevived;
+    private _fixedDimensions;
+    get pid(): number;
+    get shellLaunchConfig(): IShellLaunchConfig;
+    get hasWrittenData(): boolean;
+    get title(): string;
+    get titleSource(): TitleEventSource;
+    get icon(): TerminalIcon | undefined;
+    get color(): string | undefined;
+    get fixedDimensions(): IFixedTerminalDimensions | undefined;
+    setTitle(title: string, titleSource: TitleEventSource): void;
+    setIcon(userInitiated: boolean, icon: TerminalIcon, color?: string): void;
+    private _setFixedDimensions;
+    constructor(_persistentProcessId: number, _terminalProcess: TerminalProcess, workspaceId: string, workspaceName: string, shouldPersistTerminal: boolean, cols: number, rows: number, processLaunchOptions: IPersistentTerminalProcessLaunchConfig, unicodeVersion: '6' | '11', reconnectConstants: IReconnectConstants, _logService: ILogService, reviveBuffer: string | undefined, rawReviveBuffer: string | undefined, _icon?: TerminalIcon | undefined, _color?: string | undefined, name?: string, fixedDimensions?: IFixedTerminalDimensions);
+    attach(): Promise<void>;
+    detach(forcePersist?: boolean): Promise<void>;
+    serializeNormalBuffer(): Promise<IPtyHostProcessReplayEvent>;
+    refreshProperty<T extends ProcessPropertyType>(type: T): Promise<IProcessPropertyMap[T]>;
+    updateProperty<T extends ProcessPropertyType>(type: T, value: IProcessPropertyMap[T]): Promise<void>;
+    start(): Promise<ITerminalLaunchError | undefined>;
+    shutdown(immediate: boolean): void;
+    input(data: string): void;
+    writeBinary(data: string): Promise<void>;
+    resize(cols: number, rows: number): void;
+    setUnicodeVersion(version: '6' | '11'): void;
+    acknowledgeDataEvent(charCount: number): void;
+    getInitialCwd(): Promise<string>;
+    getCwd(): Promise<string>;
+    getLatency(): Promise<number>;
+    triggerReplay(): Promise<void>;
+    installAutoReply(match: string, reply: string): void;
+    uninstallAutoReply(match: string): void;
+    sendCommandResult(reqId: number, isError: boolean, serializedPayload: any): void;
+    orphanQuestionReply(): void;
+    reduceGraceTime(): void;
+    isOrphaned(): Promise<boolean>;
+    private _isOrphaned;
+}
+export interface ITerminalSerializer {
+    handleData(data: string): void;
+    freeRawReviveBuffer(): void;
+    handleResize(cols: number, rows: number): void;
+    generateReplayEvent(normalBufferOnly?: boolean, restoreToLastReviveBuffer?: boolean): Promise<IPtyHostProcessReplayEvent>;
+    setUnicodeVersion?(version: '6' | '11'): void;
+}

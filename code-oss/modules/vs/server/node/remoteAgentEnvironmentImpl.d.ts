@@ -1,0 +1,31 @@
+import { Event } from 'vs/base/common/event';
+import { IServerEnvironmentService } from 'vs/server/node/serverEnvironmentService';
+import { IServerChannel } from 'vs/base/parts/ipc/common/ipc';
+import { ILogService } from 'vs/platform/log/common/log';
+import { ServerConnectionToken } from 'vs/server/node/serverConnectionToken';
+import { IExtensionHostStatusService } from 'vs/server/node/extensionHostStatusService';
+import { IExtensionsScannerService } from 'vs/platform/extensionManagement/common/extensionsScannerService';
+import { IUserDataProfilesService } from 'vs/platform/userDataProfile/common/userDataProfile';
+import { ExtensionManagementCLI } from 'vs/platform/extensionManagement/common/extensionManagementCLI';
+import { INativeServerExtensionManagementService } from 'vs/platform/extensionManagement/node/extensionManagementService';
+export declare class RemoteAgentEnvironmentChannel implements IServerChannel {
+    private readonly _connectionToken;
+    private readonly _environmentService;
+    private readonly _userDataProfilesService;
+    private readonly _logService;
+    private readonly _extensionHostStatusService;
+    private readonly _extensionsScannerService;
+    private readonly _extensionManagementService;
+    private static _namePool;
+    private readonly whenExtensionsReady;
+    constructor(_connectionToken: ServerConnectionToken, _environmentService: IServerEnvironmentService, _userDataProfilesService: IUserDataProfilesService, extensionManagementCLI: ExtensionManagementCLI, _logService: ILogService, _extensionHostStatusService: IExtensionHostStatusService, _extensionsScannerService: IExtensionsScannerService, _extensionManagementService: INativeServerExtensionManagementService);
+    call(_: any, command: string, arg?: any): Promise<any>;
+    listen(_: any, event: string, arg: any): Event<any>;
+    private static _massageWhenConditions;
+    private _getEnvironmentData;
+    private _scanExtensions;
+    private _scanDevelopedExtensions;
+    private _scanBuiltinExtensions;
+    private _scanInstalledExtensions;
+    private _scanSingleExtension;
+}

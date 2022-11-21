@@ -1,0 +1,35 @@
+import { IFileService } from 'vs/platform/files/common/files';
+import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
+import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
+import { IWorkbenchContribution } from 'vs/workbench/common/contributions';
+import { ITextFileService } from 'vs/workbench/services/textfile/common/textfiles';
+import { IWorkspaceTagsService } from 'vs/workbench/contrib/tags/common/workspaceTags';
+import { IDiagnosticsService } from 'vs/platform/diagnostics/common/diagnostics';
+import { IRequestService } from 'vs/platform/request/common/request';
+import { INativeHostService } from 'vs/platform/native/electron-sandbox/native';
+import { IProductService } from 'vs/platform/product/common/productService';
+export declare function getHashedRemotesFromConfig(text: string, stripEndingDotGit?: boolean): Promise<string[]>;
+export declare class WorkspaceTags implements IWorkbenchContribution {
+    private readonly fileService;
+    private readonly contextService;
+    private readonly telemetryService;
+    private readonly requestService;
+    private readonly textFileService;
+    private readonly workspaceTagsService;
+    private readonly diagnosticsService;
+    private readonly productService;
+    private readonly nativeHostService;
+    constructor(fileService: IFileService, contextService: IWorkspaceContextService, telemetryService: ITelemetryService, requestService: IRequestService, textFileService: ITextFileService, workspaceTagsService: IWorkspaceTagsService, diagnosticsService: IDiagnosticsService, productService: IProductService, nativeHostService: INativeHostService);
+    private report;
+    private reportWindowsEdition;
+    private getWorkspaceInformation;
+    private reportWorkspaceTags;
+    private reportRemoteDomains;
+    private reportRemotes;
+    private reportAzureNode;
+    private static searchArray;
+    private reportAzureJava;
+    private reportAzure;
+    private reportCloudStats;
+    private reportProxyStats;
+}

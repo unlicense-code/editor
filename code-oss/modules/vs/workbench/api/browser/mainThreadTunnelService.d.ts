@@ -1,0 +1,40 @@
+import { MainThreadTunnelServiceShape, CandidatePortSource, PortAttributesProviderSelector, TunnelDto } from 'vs/workbench/api/common/extHost.protocol';
+import { IExtHostContext } from 'vs/workbench/services/extensions/common/extHostCustomers';
+import { CandidatePort, IRemoteExplorerService } from 'vs/workbench/services/remote/common/remoteExplorerService';
+import { ITunnelService, TunnelProviderFeatures, TunnelOptions, ProvidedPortAttributes, PortAttributesProvider } from 'vs/platform/tunnel/common/tunnel';
+import { Disposable } from 'vs/base/common/lifecycle';
+import type { TunnelDescription } from 'vs/platform/remote/common/remoteAuthorityResolver';
+import { INotificationService } from 'vs/platform/notification/common/notification';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IRemoteAgentService } from 'vs/workbench/services/remote/common/remoteAgentService';
+import { CancellationToken } from 'vs/base/common/cancellation';
+export declare class MainThreadTunnelService extends Disposable implements MainThreadTunnelServiceShape, PortAttributesProvider {
+    private readonly remoteExplorerService;
+    private readonly tunnelService;
+    private readonly notificationService;
+    private readonly configurationService;
+    private readonly logService;
+    private readonly remoteAgentService;
+    private readonly _proxy;
+    private elevateionRetry;
+    private portsAttributesProviders;
+    constructor(extHostContext: IExtHostContext, remoteExplorerService: IRemoteExplorerService, tunnelService: ITunnelService, notificationService: INotificationService, configurationService: IConfigurationService, logService: ILogService, remoteAgentService: IRemoteAgentService);
+    private processFindingEnabled;
+    $setRemoteTunnelService(processId: number): Promise<void>;
+    private _alreadyRegistered;
+    $registerPortsAttributesProvider(selector: PortAttributesProviderSelector, providerHandle: number): Promise<void>;
+    $unregisterPortsAttributesProvider(providerHandle: number): Promise<void>;
+    providePortAttributes(ports: number[], pid: number | undefined, commandLine: string | undefined, token: CancellationToken): Promise<ProvidedPortAttributes[]>;
+    $openTunnel(tunnelOptions: TunnelOptions, source: string): Promise<TunnelDto | undefined>;
+    private elevationPrompt;
+    $closeTunnel(remote: {
+        host: string;
+        port: number;
+    }): Promise<void>;
+    $getTunnels(): Promise<TunnelDescription[]>;
+    $onFoundNewCandidates(candidates: CandidatePort[]): Promise<void>;
+    $setTunnelProvider(features?: TunnelProviderFeatures): Promise<void>;
+    $setCandidateFilter(): Promise<void>;
+    $setCandidatePortSource(source: CandidatePortSource): Promise<void>;
+}

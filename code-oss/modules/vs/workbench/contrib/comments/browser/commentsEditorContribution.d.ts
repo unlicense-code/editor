@@ -1,0 +1,92 @@
+import 'vs/css!./media/review';
+import { IActiveCodeEditor, ICodeEditor, IEditorMouseEvent, IViewZone } from 'vs/editor/browser/editorBrowser';
+import { EditorAction } from 'vs/editor/browser/editorExtensions';
+import { ICodeEditorService } from 'vs/editor/browser/services/codeEditorService';
+import { Range } from 'vs/editor/common/core/range';
+import { IEditorContribution, IModelChangedEvent } from 'vs/editor/common/editorCommon';
+import { IContextMenuService } from 'vs/platform/contextview/browser/contextView';
+import { IInstantiationService, ServicesAccessor } from 'vs/platform/instantiation/common/instantiation';
+import { IQuickInputService } from 'vs/platform/quickinput/common/quickInput';
+import { ICommentService } from 'vs/workbench/contrib/comments/browser/commentService';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IViewsService } from 'vs/workbench/common/views';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+export declare const ID = "editor.contrib.review";
+export declare class ReviewViewZone implements IViewZone {
+    readonly afterLineNumber: number;
+    readonly domNode: HTMLElement;
+    private callback;
+    constructor(afterLineNumber: number, onDomNodeTop: (top: number) => void);
+    onDomNodeTop(top: number): void;
+}
+export declare class CommentController implements IEditorContribution {
+    private readonly commentService;
+    private readonly instantiationService;
+    private readonly codeEditorService;
+    readonly contextMenuService: IContextMenuService;
+    private readonly quickInputService;
+    private readonly viewsService;
+    private readonly configurationService;
+    readonly contextKeyService: IContextKeyService;
+    private readonly editorService;
+    private readonly globalToDispose;
+    private readonly localToDispose;
+    private editor;
+    private _commentWidgets;
+    private _commentInfos;
+    private _commentingRangeDecorator;
+    private _commentThreadRangeDecorator;
+    private mouseDownInfo;
+    private _commentingRangeSpaceReserved;
+    private _computePromise;
+    private _addInProgress;
+    private _emptyThreadsToAddQueue;
+    private _computeCommentingRangePromise;
+    private _computeCommentingRangeScheduler;
+    private _pendingCommentCache;
+    private _editorDisposables;
+    private _activeCursorHasCommentingRange;
+    private _workspaceHasCommenting;
+    constructor(editor: ICodeEditor, commentService: ICommentService, instantiationService: IInstantiationService, codeEditorService: ICodeEditorService, contextMenuService: IContextMenuService, quickInputService: IQuickInputService, viewsService: IViewsService, configurationService: IConfigurationService, contextKeyService: IContextKeyService, editorService: IEditorService);
+    private registerEditorListeners;
+    private clearEditorListeners;
+    private onEditorMouseMove;
+    private onEditorChangeCursorSelection;
+    private onEditorChangeCursorPosition;
+    private isEditorInlineOriginal;
+    private beginCompute;
+    private beginComputeCommentingRanges;
+    static get(editor: ICodeEditor): CommentController | null;
+    revealCommentThread(threadId: string, commentUniqueId: number, fetchOnceIfNotExist: boolean): void;
+    collapseAll(): void;
+    expandAll(): void;
+    nextCommentThread(): void;
+    private _findNearestCommentThread;
+    previousCommentThread(): void;
+    dispose(): void;
+    onModelChanged(e: IModelChangedEvent): void;
+    private openCommentsView;
+    private displayCommentThread;
+    private onEditorMouseDown;
+    private onEditorMouseUp;
+    addOrToggleCommentAtLine(commentRange: Range, e: IEditorMouseEvent | undefined): Promise<void>;
+    private processNextThreadToAdd;
+    addCommentAtLine(range: Range, e: IEditorMouseEvent | undefined): Promise<void>;
+    private getCommentProvidersQuickPicks;
+    private getContextMenuActions;
+    addCommentAtLine2(range: Range, ownerId: string): void;
+    private tryUpdateReservedSpace;
+    private setComments;
+    closeWidget(): void;
+    private removeCommentWidgetsAndStoreCache;
+}
+export declare class NextCommentThreadAction extends EditorAction {
+    constructor();
+    run(accessor: ServicesAccessor, editor: ICodeEditor): void;
+}
+export declare class PreviousCommentThreadAction extends EditorAction {
+    constructor();
+    run(accessor: ServicesAccessor, editor: ICodeEditor): void;
+}
+export declare function getActiveEditor(accessor: ServicesAccessor): IActiveCodeEditor | null;

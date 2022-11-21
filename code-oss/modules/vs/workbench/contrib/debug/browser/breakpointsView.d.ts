@@ -1,0 +1,64 @@
+import { ILanguageService } from 'vs/editor/common/languages/language';
+import { IMenuService } from 'vs/platform/actions/common/actions';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IContextKey, IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { IContextMenuService, IContextViewService } from 'vs/platform/contextview/browser/contextView';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+import { ILabelService } from 'vs/platform/label/common/label';
+import { IOpenerService } from 'vs/platform/opener/common/opener';
+import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
+import { IThemeService, ThemeIcon } from 'vs/platform/theme/common/themeService';
+import { ViewPane } from 'vs/workbench/browser/parts/views/viewPane';
+import { IViewletViewOptions } from 'vs/workbench/browser/parts/views/viewsViewlet';
+import { IEditorPane } from 'vs/workbench/common/editor';
+import { IViewDescriptorService } from 'vs/workbench/common/views';
+import { IBreakpoint, IDataBreakpoint, IDebugModel, IDebugService, IExceptionBreakpoint, IFunctionBreakpoint, IInstructionBreakpoint, State } from 'vs/workbench/contrib/debug/common/debug';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IHoverService } from 'vs/workbench/services/hover/browser/hover';
+export declare function getExpandedBodySize(model: IDebugModel, countLimit: number): number;
+declare type BreakpointItem = IBreakpoint | IFunctionBreakpoint | IDataBreakpoint | IExceptionBreakpoint | IInstructionBreakpoint;
+interface InputBoxData {
+    breakpoint: IFunctionBreakpoint | IExceptionBreakpoint;
+    type: 'condition' | 'hitCount' | 'name';
+}
+export declare class BreakpointsView extends ViewPane {
+    private readonly debugService;
+    private readonly editorService;
+    private readonly contextViewService;
+    private readonly labelService;
+    private readonly hoverService;
+    private readonly languageService;
+    private list;
+    private needsRefresh;
+    private needsStateChange;
+    private ignoreLayout;
+    private menu;
+    private breakpointItemType;
+    private breakpointSupportsCondition;
+    private _inputBoxData;
+    breakpointInputFocused: IContextKey<boolean>;
+    private autoFocusedIndex;
+    private hintContainer;
+    private hintDelayer;
+    constructor(options: IViewletViewOptions, contextMenuService: IContextMenuService, debugService: IDebugService, keybindingService: IKeybindingService, instantiationService: IInstantiationService, themeService: IThemeService, editorService: IEditorService, contextViewService: IContextViewService, configurationService: IConfigurationService, viewDescriptorService: IViewDescriptorService, contextKeyService: IContextKeyService, openerService: IOpenerService, telemetryService: ITelemetryService, labelService: ILabelService, menuService: IMenuService, hoverService: IHoverService, languageService: ILanguageService);
+    renderBody(container: HTMLElement): void;
+    protected renderHeaderTitle(container: HTMLElement, title: string): void;
+    focus(): void;
+    renderInputBox(data: InputBoxData | undefined): void;
+    get inputBoxData(): InputBoxData | undefined;
+    protected layoutBody(height: number, width: number): void;
+    private onListContextMenu;
+    private updateSize;
+    private updateBreakpointsHint;
+    private onBreakpointsChange;
+    private onStateChange;
+    private get elements();
+}
+export declare function openBreakpointSource(breakpoint: IBreakpoint, sideBySide: boolean, preserveFocus: boolean, pinned: boolean, debugService: IDebugService, editorService: IEditorService): Promise<IEditorPane | undefined>;
+export declare function getBreakpointMessageAndIcon(state: State, breakpointsActivated: boolean, breakpoint: BreakpointItem, labelService?: ILabelService): {
+    message?: string;
+    icon: ThemeIcon;
+    showAdapterUnverifiedMessage?: boolean;
+};
+export {};

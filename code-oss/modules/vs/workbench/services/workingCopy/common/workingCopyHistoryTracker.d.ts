@@ -1,0 +1,37 @@
+import { Disposable } from 'vs/base/common/lifecycle';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IUndoRedoService } from 'vs/platform/undoRedo/common/undoRedo';
+import { IUriIdentityService } from 'vs/platform/uriIdentity/common/uriIdentity';
+import { IWorkbenchContribution } from 'vs/workbench/common/contributions';
+import { IPathService } from 'vs/workbench/services/path/common/pathService';
+import { IWorkingCopyHistoryService } from 'vs/workbench/services/workingCopy/common/workingCopyHistory';
+import { IWorkingCopyService } from 'vs/workbench/services/workingCopy/common/workingCopyService';
+import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
+import { IFileService } from 'vs/platform/files/common/files';
+export declare class WorkingCopyHistoryTracker extends Disposable implements IWorkbenchContribution {
+    private readonly workingCopyService;
+    private readonly workingCopyHistoryService;
+    private readonly uriIdentityService;
+    private readonly pathService;
+    private readonly configurationService;
+    private readonly undoRedoService;
+    private readonly contextService;
+    private readonly fileService;
+    private static readonly SETTINGS;
+    private static readonly UNDO_REDO_SAVE_SOURCE;
+    private readonly limiter;
+    private readonly resourceExcludeMatcher;
+    private readonly pendingAddHistoryEntryOperations;
+    private readonly workingCopyContentVersion;
+    private readonly historyEntryContentVersion;
+    constructor(workingCopyService: IWorkingCopyService, workingCopyHistoryService: IWorkingCopyHistoryService, uriIdentityService: IUriIdentityService, pathService: IPathService, configurationService: IConfigurationService, undoRedoService: IUndoRedoService, contextService: IWorkspaceContextService, fileService: IFileService);
+    private registerListeners;
+    private onDidRunFileOperation;
+    private onDidChangeContent;
+    private getContentVersion;
+    private onDidSave;
+    private resolveSourceFromUndoRedo;
+    private shouldTrackHistoryFromSaveEvent;
+    private shouldTrackHistoryFromFileOperationEvent;
+    private shouldTrackHistory;
+}

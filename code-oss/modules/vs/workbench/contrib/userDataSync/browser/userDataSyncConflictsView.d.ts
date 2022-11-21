@@ -1,0 +1,30 @@
+import 'vs/css!./media/userDataSyncViews';
+import { IViewDescriptorService } from 'vs/workbench/common/views';
+import { TreeViewPane } from 'vs/workbench/browser/parts/views/treeView';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { IUserDataSyncService, IResourcePreview, IUserDataSyncEnablementService } from 'vs/platform/userDataSync/common/userDataSync';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IUserDataSyncConflictsView, IUserDataSyncWorkbenchService } from 'vs/workbench/services/userDataSync/common/userDataSync';
+import { IViewletViewOptions } from 'vs/workbench/browser/parts/views/viewsViewlet';
+import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+import { IContextMenuService } from 'vs/platform/contextview/browser/contextView';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IOpenerService } from 'vs/platform/opener/common/opener';
+import { IThemeService } from 'vs/platform/theme/common/themeService';
+import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
+import { INotificationService } from 'vs/platform/notification/common/notification';
+import { IUserDataProfilesService } from 'vs/platform/userDataProfile/common/userDataProfile';
+export declare class UserDataSyncConflictsViewPane extends TreeViewPane implements IUserDataSyncConflictsView {
+    private readonly editorService;
+    private readonly userDataSyncService;
+    private readonly userDataSyncWorkbenchService;
+    private readonly userDataSyncEnablementService;
+    private readonly userDataProfilesService;
+    constructor(options: IViewletViewOptions, editorService: IEditorService, keybindingService: IKeybindingService, contextMenuService: IContextMenuService, configurationService: IConfigurationService, contextKeyService: IContextKeyService, viewDescriptorService: IViewDescriptorService, instantiationService: IInstantiationService, openerService: IOpenerService, themeService: IThemeService, telemetryService: ITelemetryService, notificationService: INotificationService, userDataSyncService: IUserDataSyncService, userDataSyncWorkbenchService: IUserDataSyncWorkbenchService, userDataSyncEnablementService: IUserDataSyncEnablementService, userDataProfilesService: IUserDataProfilesService);
+    protected renderTreeView(container: HTMLElement): void;
+    private getTreeItems;
+    private parseHandle;
+    private registerActions;
+    open(conflictToOpen: IResourcePreview): Promise<void>;
+}

@@ -1,0 +1,38 @@
+import { IWorkingCopyBackupService } from 'vs/workbench/services/workingCopy/common/workingCopyBackup';
+import { IWorkbenchContribution } from 'vs/workbench/common/contributions';
+import { IFilesConfigurationService } from 'vs/workbench/services/filesConfiguration/common/filesConfigurationService';
+import { IWorkingCopyService } from 'vs/workbench/services/workingCopy/common/workingCopyService';
+import { IWorkingCopy } from 'vs/workbench/services/workingCopy/common/workingCopy';
+import { ILifecycleService, ShutdownReason } from 'vs/workbench/services/lifecycle/common/lifecycle';
+import { IFileDialogService, IDialogService } from 'vs/platform/dialogs/common/dialogs';
+import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
+import { INativeHostService } from 'vs/platform/native/electron-sandbox/native';
+import { WorkingCopyBackupTracker } from 'vs/workbench/services/workingCopy/common/workingCopyBackupTracker';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IEnvironmentService } from 'vs/platform/environment/common/environment';
+import { IProgressService } from 'vs/platform/progress/common/progress';
+import { IWorkingCopyEditorService } from 'vs/workbench/services/workingCopy/common/workingCopyEditorService';
+import { IEditorGroupsService } from 'vs/workbench/services/editor/common/editorGroupsService';
+export declare class NativeWorkingCopyBackupTracker extends WorkingCopyBackupTracker implements IWorkbenchContribution {
+    private readonly fileDialogService;
+    private readonly dialogService;
+    private readonly contextService;
+    private readonly nativeHostService;
+    private readonly environmentService;
+    private readonly progressService;
+    constructor(workingCopyBackupService: IWorkingCopyBackupService, filesConfigurationService: IFilesConfigurationService, workingCopyService: IWorkingCopyService, lifecycleService: ILifecycleService, fileDialogService: IFileDialogService, dialogService: IDialogService, contextService: IWorkspaceContextService, nativeHostService: INativeHostService, logService: ILogService, environmentService: IEnvironmentService, progressService: IProgressService, workingCopyEditorService: IWorkingCopyEditorService, editorService: IEditorService, editorGroupService: IEditorGroupsService);
+    protected onFinalBeforeShutdown(reason: ShutdownReason): Promise<boolean>;
+    protected onBeforeShutdownWithDirty(reason: ShutdownReason, dirtyWorkingCopies: readonly IWorkingCopy[]): Promise<boolean>;
+    private handleDirtyBeforeShutdown;
+    private shouldBackupBeforeShutdown;
+    private showErrorDialog;
+    private backupBeforeShutdown;
+    private confirmBeforeShutdown;
+    private doSaveAllBeforeShutdown;
+    private doRevertAllBeforeShutdown;
+    private onBeforeShutdownWithoutDirty;
+    private noVeto;
+    private discardBackupsBeforeShutdown;
+    private withProgressAndCancellation;
+}

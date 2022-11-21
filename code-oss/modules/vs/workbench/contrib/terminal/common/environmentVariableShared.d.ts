@@ -1,0 +1,5 @@
+import { IEnvironmentVariableCollection, IEnvironmentVariableMutator, ISerializableEnvironmentVariableCollection, ISerializableEnvironmentVariableCollections } from 'vs/workbench/contrib/terminal/common/environmentVariable';
+export declare function serializeEnvironmentVariableCollection(collection: ReadonlyMap<string, IEnvironmentVariableMutator>): ISerializableEnvironmentVariableCollection;
+export declare function deserializeEnvironmentVariableCollection(serializedCollection: ISerializableEnvironmentVariableCollection): Map<string, IEnvironmentVariableMutator>;
+export declare function serializeEnvironmentVariableCollections(collections: ReadonlyMap<string, IEnvironmentVariableCollection>): ISerializableEnvironmentVariableCollections;
+export declare function deserializeEnvironmentVariableCollections(serializedCollection: ISerializableEnvironmentVariableCollections): Map<string, IEnvironmentVariableCollection>;

@@ -1,0 +1,77 @@
+import { Emitter, Event, PauseableEmitter } from 'vs/base/common/event';
+import { ICodeEditorService } from 'vs/editor/browser/services/codeEditorService';
+import * as editorCommon from 'vs/editor/common/editorCommon';
+import { ITextModelService } from 'vs/editor/common/services/resolverService';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IUndoRedoService } from 'vs/platform/undoRedo/common/undoRedo';
+import { CellFindMatch, CodeCellLayoutChangeEvent, CodeCellLayoutInfo, ICellOutputViewModel, ICellViewModel } from 'vs/workbench/contrib/notebook/browser/notebookBrowser';
+import { ViewContext } from 'vs/workbench/contrib/notebook/browser/viewModel/viewContext';
+import { NotebookCellTextModel } from 'vs/workbench/contrib/notebook/common/model/notebookCellTextModel';
+import { CellKind, INotebookSearchOptions, NotebookCellOutputsSplice } from 'vs/workbench/contrib/notebook/common/notebookCommon';
+import { NotebookOptionsChangeEvent } from 'vs/workbench/contrib/notebook/common/notebookOptions';
+import { INotebookService } from 'vs/workbench/contrib/notebook/common/notebookService';
+import { BaseCellViewModel } from './baseCellViewModel';
+import { NotebookLayoutInfo } from 'vs/workbench/contrib/notebook/browser/notebookViewEvents';
+export declare class CodeCellViewModel extends BaseCellViewModel implements ICellViewModel {
+    readonly viewContext: ViewContext;
+    private readonly _notebookService;
+    readonly cellKind = CellKind.Code;
+    protected readonly _onLayoutInfoRead: Emitter<void>;
+    readonly onLayoutInfoRead: Event<void>;
+    protected readonly _onDidChangeOutputs: Emitter<NotebookCellOutputsSplice>;
+    readonly onDidChangeOutputs: Event<NotebookCellOutputsSplice>;
+    private readonly _onDidRemoveOutputs;
+    readonly onDidRemoveOutputs: Event<readonly ICellOutputViewModel[]>;
+    private _outputCollection;
+    private _outputsTop;
+    protected _pauseableEmitter: PauseableEmitter<CodeCellLayoutChangeEvent>;
+    readonly onDidChangeLayout: Event<CodeCellLayoutChangeEvent>;
+    private _editorHeight;
+    set editorHeight(height: number);
+    get editorHeight(): number;
+    private _commentHeight;
+    set commentHeight(height: number);
+    private _hoveringOutput;
+    get outputIsHovered(): boolean;
+    set outputIsHovered(v: boolean);
+    private _focusOnOutput;
+    get outputIsFocused(): boolean;
+    set outputIsFocused(v: boolean);
+    private _outputMinHeight;
+    private get outputMinHeight();
+    /**
+     * The minimum height of the output region. It's only set to non-zero temporarily when replacing an output with a new one.
+     * It's reset to 0 when the new output is rendered, or in one second.
+     */
+    private set outputMinHeight(value);
+    private _layoutInfo;
+    get layoutInfo(): CodeCellLayoutInfo;
+    private _outputViewModels;
+    get outputsViewModels(): ICellOutputViewModel[];
+    constructor(viewType: string, model: NotebookCellTextModel, initialNotebookLayoutInfo: NotebookLayoutInfo | null, viewContext: ViewContext, configurationService: IConfigurationService, _notebookService: INotebookService, modelService: ITextModelService, undoRedoService: IUndoRedoService, codeEditorService: ICodeEditorService);
+    updateOptions(e: NotebookOptionsChangeEvent): void;
+    pauseLayout(): void;
+    resumeLayout(): void;
+    layoutChange(state: CodeCellLayoutChangeEvent, source?: string): void;
+    private _fireOnDidChangeLayout;
+    restoreEditorViewState(editorViewStates: editorCommon.ICodeEditorViewState | null, totalHeight?: number): void;
+    hasDynamicHeight(): boolean;
+    getDynamicHeight(): number;
+    getHeight(lineHeight: number): number;
+    private estimateEditorHeight;
+    private computeTotalHeight;
+    protected onDidChangeTextModelContent(): void;
+    onDeselect(): void;
+    updateOutputShowMoreContainerHeight(height: number): void;
+    updateOutputMinHeight(height: number): void;
+    unlockOutputHeight(): void;
+    updateOutputHeight(index: number, height: number, source?: string): void;
+    getOutputOffsetInContainer(index: number): number;
+    getOutputOffset(index: number): number;
+    spliceOutputHeights(start: number, deleteCnt: number, heights: number[]): void;
+    private _ensureOutputsTop;
+    private readonly _hasFindResult;
+    readonly hasFindResult: Event<boolean>;
+    startFind(value: string, options: INotebookSearchOptions): CellFindMatch | null;
+    dispose(): void;
+}

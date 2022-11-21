@@ -1,0 +1,30 @@
+import { Event } from 'vs/base/common/event';
+import { Disposable } from 'vs/base/common/lifecycle';
+import { URI, UriDto } from 'vs/base/common/uri';
+import { IEnvironmentService } from 'vs/platform/environment/common/environment';
+import { IMainProcessService } from 'vs/platform/ipc/electron-sandbox/services';
+import { DidChangeProfilesEvent, IUserDataProfile, IUserDataProfileOptions, IUserDataProfilesService, IUserDataProfileUpdateOptions, WorkspaceIdentifier } from 'vs/platform/userDataProfile/common/userDataProfile';
+export declare class UserDataProfilesNativeService extends Disposable implements IUserDataProfilesService {
+    readonly _serviceBrand: undefined;
+    private readonly channel;
+    readonly profilesHome: URI;
+    get defaultProfile(): IUserDataProfile;
+    private _profiles;
+    get profiles(): IUserDataProfile[];
+    private readonly _onDidChangeProfiles;
+    readonly onDidChangeProfiles: Event<DidChangeProfilesEvent>;
+    readonly onDidResetWorkspaces: Event<void>;
+    private enabled;
+    constructor(profiles: readonly UriDto<IUserDataProfile>[], mainProcessService: IMainProcessService, environmentService: IEnvironmentService);
+    setEnablement(enabled: boolean): void;
+    isEnabled(): boolean;
+    createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: WorkspaceIdentifier): Promise<IUserDataProfile>;
+    createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: WorkspaceIdentifier): Promise<IUserDataProfile>;
+    createTransientProfile(workspaceIdentifier?: WorkspaceIdentifier): Promise<IUserDataProfile>;
+    setProfileForWorkspace(workspaceIdentifier: WorkspaceIdentifier, profile: IUserDataProfile): Promise<void>;
+    removeProfile(profile: IUserDataProfile): Promise<void>;
+    updateProfile(profile: IUserDataProfile, updateOptions: IUserDataProfileUpdateOptions): Promise<IUserDataProfile>;
+    resetWorkspaces(): Promise<void>;
+    cleanUp(): Promise<void>;
+    cleanUpTransientProfiles(): Promise<void>;
+}

@@ -1,0 +1,34 @@
+import { Disposable } from 'vs/base/common/lifecycle';
+import { UriComponents } from 'vs/base/common/uri';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { MainThreadWebviewPanels } from 'vs/workbench/api/browser/mainThreadWebviewPanels';
+import { MainThreadWebviews } from 'vs/workbench/api/browser/mainThreadWebviews';
+import * as extHostProtocol from 'vs/workbench/api/common/extHost.protocol';
+import { ICustomEditorService } from 'vs/workbench/contrib/customEditor/common/customEditor';
+import { IWebviewWorkbenchService } from 'vs/workbench/contrib/webviewPanel/browser/webviewWorkbenchService';
+import { IEditorGroupsService } from 'vs/workbench/services/editor/common/editorGroupsService';
+import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
+import { IExtHostContext } from 'vs/workbench/services/extensions/common/extHostCustomers';
+import { IWorkingCopyFileService } from 'vs/workbench/services/workingCopy/common/workingCopyFileService';
+import { IWorkingCopyService } from 'vs/workbench/services/workingCopy/common/workingCopyService';
+export declare class MainThreadCustomEditors extends Disposable implements extHostProtocol.MainThreadCustomEditorsShape {
+    private readonly mainThreadWebview;
+    private readonly mainThreadWebviewPanels;
+    private readonly _customEditorService;
+    private readonly _editorGroupService;
+    private readonly _webviewWorkbenchService;
+    private readonly _instantiationService;
+    private readonly _proxyCustomEditors;
+    private readonly _editorProviders;
+    private readonly _editorRenameBackups;
+    constructor(context: IExtHostContext, mainThreadWebview: MainThreadWebviews, mainThreadWebviewPanels: MainThreadWebviewPanels, extensionService: IExtensionService, workingCopyService: IWorkingCopyService, workingCopyFileService: IWorkingCopyFileService, _customEditorService: ICustomEditorService, _editorGroupService: IEditorGroupsService, _webviewWorkbenchService: IWebviewWorkbenchService, _instantiationService: IInstantiationService);
+    $registerTextEditorProvider(extensionData: extHostProtocol.WebviewExtensionDescription, viewType: string, options: extHostProtocol.IWebviewPanelOptions, capabilities: extHostProtocol.CustomTextEditorCapabilities, serializeBuffersForPostMessage: boolean): void;
+    $registerCustomEditorProvider(extensionData: extHostProtocol.WebviewExtensionDescription, viewType: string, options: extHostProtocol.IWebviewPanelOptions, supportsMultipleEditorsPerDocument: boolean, serializeBuffersForPostMessage: boolean): void;
+    private registerEditorProvider;
+    $unregisterEditorProvider(viewType: string): void;
+    private getOrCreateCustomEditorModel;
+    $onDidEdit(resourceComponents: UriComponents, viewType: string, editId: number, label: string | undefined): Promise<void>;
+    $onContentChange(resourceComponents: UriComponents, viewType: string): Promise<void>;
+    private getCustomEditorModel;
+    private onWillRunWorkingCopyFileOperation;
+}

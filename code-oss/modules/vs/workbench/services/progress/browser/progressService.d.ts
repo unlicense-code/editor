@@ -1,0 +1,35 @@
+import 'vs/css!./media/progressService';
+import { Disposable } from 'vs/base/common/lifecycle';
+import { IProgressService, IProgressOptions, IProgressStep, IProgress } from 'vs/platform/progress/common/progress';
+import { IStatusbarService } from 'vs/workbench/services/statusbar/browser/statusbar';
+import { IActivityService } from 'vs/workbench/services/activity/common/activity';
+import { INotificationService } from 'vs/platform/notification/common/notification';
+import { ILayoutService } from 'vs/platform/layout/browser/layoutService';
+import { IThemeService } from 'vs/platform/theme/common/themeService';
+import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+import { IViewsService, IViewDescriptorService } from 'vs/workbench/common/views';
+import { IPaneCompositePartService } from 'vs/workbench/services/panecomposite/browser/panecomposite';
+export declare class ProgressService extends Disposable implements IProgressService {
+    private readonly activityService;
+    private readonly paneCompositeService;
+    private readonly viewDescriptorService;
+    private readonly viewsService;
+    private readonly notificationService;
+    private readonly statusbarService;
+    private readonly layoutService;
+    private readonly themeService;
+    private readonly keybindingService;
+    readonly _serviceBrand: undefined;
+    constructor(activityService: IActivityService, paneCompositeService: IPaneCompositePartService, viewDescriptorService: IViewDescriptorService, viewsService: IViewsService, notificationService: INotificationService, statusbarService: IStatusbarService, layoutService: ILayoutService, themeService: IThemeService, keybindingService: IKeybindingService);
+    withProgress<R = unknown>(options: IProgressOptions, task: (progress: IProgress<IProgressStep>) => Promise<R>, onDidCancel?: (choice?: number) => void): Promise<R>;
+    private readonly windowProgressStack;
+    private windowProgressStatusEntry;
+    private withWindowProgress;
+    private updateWindowProgress;
+    private withNotificationProgress;
+    private withPaneCompositeProgress;
+    private withViewProgress;
+    private showOnActivityBar;
+    private withCompositeProgress;
+    private withDialogProgress;
+}

@@ -1,0 +1,53 @@
+import { IStorageService } from 'vs/platform/storage/common/storage';
+import { IWorkbenchEnvironmentService } from 'vs/workbench/services/environment/common/environmentService';
+import { IFileService } from 'vs/platform/files/common/files';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IProductService } from 'vs/platform/product/common/productService';
+import { IRequestService } from 'vs/platform/request/common/request';
+import { IUserDataSyncStoreManagementService } from 'vs/platform/userDataSync/common/userDataSync';
+import { IUriIdentityService } from 'vs/platform/uriIdentity/common/uriIdentity';
+import { ICredentialsService } from 'vs/platform/credentials/common/credentials';
+import { IUserDataProfilesService } from 'vs/platform/userDataProfile/common/userDataProfile';
+export declare const IUserDataInitializationService: import("vs/platform/instantiation/common/instantiation").ServiceIdentifier<IUserDataInitializationService>;
+export interface IUserDataInitializationService {
+    _serviceBrand: any;
+    requiresInitialization(): Promise<boolean>;
+    whenInitializationFinished(): Promise<void>;
+    initializeRequiredResources(): Promise<void>;
+    initializeInstalledExtensions(instantiationService: IInstantiationService): Promise<void>;
+    initializeOtherResources(instantiationService: IInstantiationService): Promise<void>;
+}
+export declare class UserDataInitializationService implements IUserDataInitializationService {
+    private readonly environmentService;
+    private readonly credentialsService;
+    private readonly userDataSyncStoreManagementService;
+    private readonly fileService;
+    private readonly userDataProfilesService;
+    private readonly storageService;
+    private readonly productService;
+    private readonly requestService;
+    private readonly logService;
+    private readonly uriIdentityService;
+    _serviceBrand: any;
+    private readonly initialized;
+    private readonly initializationFinished;
+    private globalStateUserData;
+    constructor(environmentService: IWorkbenchEnvironmentService, credentialsService: ICredentialsService, userDataSyncStoreManagementService: IUserDataSyncStoreManagementService, fileService: IFileService, userDataProfilesService: IUserDataProfilesService, storageService: IStorageService, productService: IProductService, requestService: IRequestService, logService: ILogService, uriIdentityService: IUriIdentityService);
+    private _userDataSyncStoreClientPromise;
+    private createUserDataSyncStoreClient;
+    private initializeUserDataSyncStore;
+    whenInitializationFinished(): Promise<void>;
+    requiresInitialization(): Promise<boolean>;
+    initializeRequiredResources(): Promise<void>;
+    initializeOtherResources(instantiationService: IInstantiationService): Promise<void>;
+    private initializeExtensions;
+    private initializeInstalledExtensionsPromise;
+    initializeInstalledExtensions(instantiationService: IInstantiationService): Promise<void>;
+    private initializeNewExtensionsPromise;
+    private initializeNewExtensions;
+    private extensionsPreviewInitializerPromise;
+    private getExtensionsPreviewInitializer;
+    private initialize;
+    private createSyncResourceInitializer;
+}

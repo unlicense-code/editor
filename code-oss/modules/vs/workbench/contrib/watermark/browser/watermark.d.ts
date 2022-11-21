@@ -1,0 +1,31 @@
+import 'vs/css!./media/watermark';
+import { Disposable } from 'vs/base/common/lifecycle';
+import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
+import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
+import { IWorkbenchContribution } from 'vs/workbench/common/contributions';
+import { ILifecycleService } from 'vs/workbench/services/lifecycle/common/lifecycle';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IWorkbenchLayoutService } from 'vs/workbench/services/layout/browser/layoutService';
+import { IEditorGroupsService } from 'vs/workbench/services/editor/common/editorGroupsService';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+export declare class WatermarkContribution extends Disposable implements IWorkbenchContribution {
+    private readonly lifecycleService;
+    private readonly layoutService;
+    private readonly keybindingService;
+    private readonly contextService;
+    private readonly contextKeyService;
+    private readonly configurationService;
+    private readonly editorGroupsService;
+    private readonly telemetryService;
+    private watermark;
+    private watermarkDisposable;
+    private enabled;
+    private workbenchState;
+    constructor(lifecycleService: ILifecycleService, layoutService: IWorkbenchLayoutService, keybindingService: IKeybindingService, contextService: IWorkspaceContextService, contextKeyService: IContextKeyService, configurationService: IConfigurationService, editorGroupsService: IEditorGroupsService, telemetryService: ITelemetryService);
+    private registerListeners;
+    private create;
+    private handleEditorPartSize;
+    private destroy;
+    private recreate;
+}

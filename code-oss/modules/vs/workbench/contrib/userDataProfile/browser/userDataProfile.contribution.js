@@ -1,0 +1,10 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+import { Registry } from 'vs/platform/registry/common/platform';
+import { Extensions } from 'vs/workbench/common/contributions';
+import { UserDataProfilesWorkbenchContribution } from 'vs/workbench/contrib/userDataProfile/browser/userDataProfile';
+import './userDataProfileActions';
+const workbenchRegistry = Registry.as(Extensions.Workbench);
+workbenchRegistry.registerWorkbenchContribution(UserDataProfilesWorkbenchContribution, 2 /* LifecyclePhase.Ready */);

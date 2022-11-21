@@ -1,0 +1,57 @@
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { INotificationService } from 'vs/platform/notification/common/notification';
+import { IUserDataProfileImportExportService, IUserDataProfileContentHandler, IUserDataProfileService, IUserDataProfileManagementService } from 'vs/workbench/services/userDataProfile/common/userDataProfile';
+import { Disposable } from 'vs/base/common/lifecycle';
+import { IDialogService } from 'vs/platform/dialogs/common/dialogs';
+import { IFileService } from 'vs/platform/files/common/files';
+import { URI } from 'vs/base/common/uri';
+import { IViewsService } from 'vs/workbench/common/views';
+import { IUserDataProfilesService } from 'vs/platform/userDataProfile/common/userDataProfile';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IProgressService } from 'vs/platform/progress/common/progress';
+import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
+import { IQuickInputService } from 'vs/platform/quickinput/common/quickInput';
+interface IUserDataProfileTemplate {
+    readonly name: string;
+    readonly shortName?: string;
+    readonly settings?: string;
+    readonly keybindings?: string;
+    readonly tasks?: string;
+    readonly snippets?: string;
+    readonly globalState?: string;
+    readonly extensions?: string;
+}
+export declare class UserDataProfileImportExportService extends Disposable implements IUserDataProfileImportExportService {
+    private readonly instantiationService;
+    private readonly userDataProfileService;
+    private readonly viewsService;
+    private readonly editorService;
+    private readonly fileService;
+    private readonly userDataProfileManagementService;
+    private readonly userDataProfilesService;
+    private readonly extensionService;
+    private readonly quickInputService;
+    private readonly notificationService;
+    private readonly progressService;
+    private readonly dialogService;
+    private readonly logService;
+    readonly _serviceBrand: undefined;
+    private profileContentHandlers;
+    private readonly isProfileImportExportInProgressContextKey;
+    private readonly viewContainer;
+    private readonly fileUserDataProfileContentHandler;
+    constructor(instantiationService: IInstantiationService, userDataProfileService: IUserDataProfileService, viewsService: IViewsService, editorService: IEditorService, contextKeyService: IContextKeyService, fileService: IFileService, userDataProfileManagementService: IUserDataProfileManagementService, userDataProfilesService: IUserDataProfilesService, extensionService: IExtensionService, quickInputService: IQuickInputService, notificationService: INotificationService, progressService: IProgressService, dialogService: IDialogService, logService: ILogService);
+    registerProfileContentHandler(profileContentHandler: IUserDataProfileContentHandler): void;
+    exportProfile(): Promise<void>;
+    importProfile(uri: URI): Promise<void>;
+    private saveProfileContent;
+    private resolveProfileContent;
+    private pickProfileContentHandler;
+    private getProfileToImport;
+    private showProfilePreviewView;
+    private closeAllImportExportPreviewEditors;
+    setProfile(profile: IUserDataProfileTemplate): Promise<void>;
+}
+export {};

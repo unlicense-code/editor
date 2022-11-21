@@ -1,0 +1,70 @@
+import { URI } from 'vs/base/common/uri';
+import { IFileEditorInput, Verbosity, GroupIdentifier, IMoveResult, EditorInputCapabilities, IEditorDescriptor, IEditorPane, IUntypedEditorInput } from 'vs/workbench/common/editor';
+import { EditorInput } from 'vs/workbench/common/editor/editorInput';
+import { AbstractTextResourceEditorInput } from 'vs/workbench/common/editor/textResourceEditorInput';
+import { ITextResourceEditorInput } from 'vs/platform/editor/common/editor';
+import { BinaryEditorModel } from 'vs/workbench/common/editor/binaryEditorModel';
+import { IFileService } from 'vs/platform/files/common/files';
+import { ITextFileService, ITextFileEditorModel, EncodingMode } from 'vs/workbench/services/textfile/common/textfiles';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { ITextModelService } from 'vs/editor/common/services/resolverService';
+import { ILabelService } from 'vs/platform/label/common/label';
+import { IFilesConfigurationService } from 'vs/workbench/services/filesConfiguration/common/filesConfigurationService';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IPathService } from 'vs/workbench/services/path/common/pathService';
+/**
+ * A file editor input is the input type for the file editor of file system resources.
+ */
+export declare class FileEditorInput extends AbstractTextResourceEditorInput implements IFileEditorInput {
+    private readonly instantiationService;
+    private readonly textModelResolverService;
+    private readonly filesConfigurationService;
+    private readonly pathService;
+    get typeId(): string;
+    get editorId(): string | undefined;
+    get capabilities(): EditorInputCapabilities;
+    private preferredName;
+    private preferredDescription;
+    private preferredEncoding;
+    private preferredLanguageId;
+    private preferredContents;
+    private forceOpenAs;
+    private model;
+    private cachedTextFileModelReference;
+    private readonly modelListeners;
+    constructor(resource: URI, preferredResource: URI | undefined, preferredName: string | undefined, preferredDescription: string | undefined, preferredEncoding: string | undefined, preferredLanguageId: string | undefined, preferredContents: string | undefined, instantiationService: IInstantiationService, textFileService: ITextFileService, textModelResolverService: ITextModelService, labelService: ILabelService, fileService: IFileService, filesConfigurationService: IFilesConfigurationService, editorService: IEditorService, pathService: IPathService);
+    private onDidCreateTextFileModel;
+    private registerModelListeners;
+    getName(): string;
+    setPreferredName(name: string): void;
+    private allowLabelOverride;
+    getPreferredName(): string | undefined;
+    getDescription(verbosity?: Verbosity): string | undefined;
+    setPreferredDescription(description: string): void;
+    getPreferredDescription(): string | undefined;
+    getEncoding(): string | undefined;
+    getPreferredEncoding(): string | undefined;
+    setEncoding(encoding: string, mode: EncodingMode): Promise<void>;
+    setPreferredEncoding(encoding: string): void;
+    getLanguageId(): string | undefined;
+    getPreferredLanguageId(): string | undefined;
+    setLanguageId(languageId: string, source?: string): void;
+    setPreferredLanguageId(languageId: string): void;
+    setPreferredContents(contents: string): void;
+    setForceOpenAsText(): void;
+    setForceOpenAsBinary(): void;
+    isDirty(): boolean;
+    isSaving(): boolean;
+    prefersEditorPane<T extends IEditorDescriptor<IEditorPane>>(editorPanes: T[]): T | undefined;
+    resolve(): Promise<ITextFileEditorModel | BinaryEditorModel>;
+    private doResolveAsText;
+    private doResolveAsBinary;
+    isResolved(): boolean;
+    rename(group: GroupIdentifier, target: URI): Promise<IMoveResult>;
+    toUntyped(options?: {
+        preserveViewState: GroupIdentifier;
+    }): ITextResourceEditorInput;
+    matches(otherInput: EditorInput | IUntypedEditorInput): boolean;
+    dispose(): void;
+    private disposeModelReference;
+}

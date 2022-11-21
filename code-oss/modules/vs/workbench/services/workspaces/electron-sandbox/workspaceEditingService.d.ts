@@ -1,0 +1,36 @@
+import { URI } from 'vs/base/common/uri';
+import { IJSONEditingService } from 'vs/workbench/services/configuration/common/jsonEditing';
+import { IWorkspacesService } from 'vs/platform/workspaces/common/workspaces';
+import { WorkspaceService } from 'vs/workbench/services/configuration/browser/configurationService';
+import { IStorageService } from 'vs/platform/storage/common/storage';
+import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
+import { IWorkingCopyBackupService } from 'vs/workbench/services/workingCopy/common/workingCopyBackup';
+import { ICommandService } from 'vs/platform/commands/common/commands';
+import { INotificationService } from 'vs/platform/notification/common/notification';
+import { IFileService } from 'vs/platform/files/common/files';
+import { INativeWorkbenchEnvironmentService } from 'vs/workbench/services/environment/electron-sandbox/environmentService';
+import { ILifecycleService } from 'vs/workbench/services/lifecycle/common/lifecycle';
+import { IFileDialogService, IDialogService } from 'vs/platform/dialogs/common/dialogs';
+import { ILabelService } from 'vs/platform/label/common/label';
+import { ITextFileService } from 'vs/workbench/services/textfile/common/textfiles';
+import { IHostService } from 'vs/workbench/services/host/browser/host';
+import { AbstractWorkspaceEditingService } from 'vs/workbench/services/workspaces/browser/abstractWorkspaceEditingService';
+import { INativeHostService } from 'vs/platform/native/electron-sandbox/native';
+import { IUriIdentityService } from 'vs/platform/uriIdentity/common/uriIdentity';
+import { IWorkspaceTrustManagementService } from 'vs/platform/workspace/common/workspaceTrust';
+import { IWorkbenchConfigurationService } from 'vs/workbench/services/configuration/common/configuration';
+import { IUserDataProfilesService } from 'vs/platform/userDataProfile/common/userDataProfile';
+import { IUserDataProfileService } from 'vs/workbench/services/userDataProfile/common/userDataProfile';
+export declare class NativeWorkspaceEditingService extends AbstractWorkspaceEditingService {
+    private nativeHostService;
+    private storageService;
+    private extensionService;
+    private workingCopyBackupService;
+    private readonly lifecycleService;
+    private readonly labelService;
+    constructor(jsonEditingService: IJSONEditingService, contextService: WorkspaceService, nativeHostService: INativeHostService, configurationService: IWorkbenchConfigurationService, storageService: IStorageService, extensionService: IExtensionService, workingCopyBackupService: IWorkingCopyBackupService, notificationService: INotificationService, commandService: ICommandService, fileService: IFileService, textFileService: ITextFileService, workspacesService: IWorkspacesService, environmentService: INativeWorkbenchEnvironmentService, fileDialogService: IFileDialogService, dialogService: IDialogService, lifecycleService: ILifecycleService, labelService: ILabelService, hostService: IHostService, uriIdentityService: IUriIdentityService, workspaceTrustManagementService: IWorkspaceTrustManagementService, userDataProfilesService: IUserDataProfilesService, userDataProfileService: IUserDataProfileService);
+    private registerListeners;
+    private saveUntitledBeforeShutdown;
+    isValidTargetWorkspacePath(workspaceUri: URI): Promise<boolean>;
+    enterWorkspace(workspaceUri: URI): Promise<void>;
+}

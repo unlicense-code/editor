@@ -1,0 +1,42 @@
+import 'vs/css!./media/bannerpart';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { IStorageService } from 'vs/platform/storage/common/storage';
+import { IThemeService } from 'vs/platform/theme/common/themeService';
+import { Part } from 'vs/workbench/browser/part';
+import { IWorkbenchLayoutService } from 'vs/workbench/services/layout/browser/layoutService';
+import { IBannerItem, IBannerService } from 'vs/workbench/services/banner/browser/bannerService';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+export declare class BannerPart extends Part implements IBannerService {
+    private readonly contextKeyService;
+    private readonly instantiationService;
+    readonly _serviceBrand: undefined;
+    readonly height: number;
+    readonly minimumWidth: number;
+    readonly maximumWidth: number;
+    get minimumHeight(): number;
+    get maximumHeight(): number;
+    private _onDidChangeSize;
+    get onDidChange(): import("vs/base/common/event").Event<{
+        width: number;
+        height: number;
+    } | undefined>;
+    private item;
+    private readonly markdownRenderer;
+    private visible;
+    private actionBar;
+    private messageActionsContainer;
+    private focusedActionIndex;
+    constructor(themeService: IThemeService, layoutService: IWorkbenchLayoutService, storageService: IStorageService, contextKeyService: IContextKeyService, instantiationService: IInstantiationService);
+    createContentArea(parent: HTMLElement): HTMLElement;
+    private close;
+    private focusActionLink;
+    private getAriaLabel;
+    private getBannerMessage;
+    private setVisibility;
+    focus(): void;
+    focusNextAction(): void;
+    focusPreviousAction(): void;
+    hide(id: string): void;
+    show(item: IBannerItem): void;
+    toJSON(): object;
+}

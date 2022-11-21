@@ -1,0 +1,13 @@
+import 'vs/css!./media/searchEditor';
+import { ServicesAccessor } from 'vs/platform/instantiation/common/instantiation';
+import { SearchResult } from 'vs/workbench/contrib/search/common/searchModel';
+import { OpenSearchEditorArgs } from 'vs/workbench/contrib/searchEditor/browser/searchEditor.contribution';
+export declare const toggleSearchEditorCaseSensitiveCommand: (accessor: ServicesAccessor) => void;
+export declare const toggleSearchEditorWholeWordCommand: (accessor: ServicesAccessor) => void;
+export declare const toggleSearchEditorRegexCommand: (accessor: ServicesAccessor) => void;
+export declare const toggleSearchEditorContextLinesCommand: (accessor: ServicesAccessor) => void;
+export declare const modifySearchEditorContextLinesCommand: (accessor: ServicesAccessor, increase: boolean) => void;
+export declare const selectAllSearchEditorMatchesCommand: (accessor: ServicesAccessor) => void;
+export declare function openSearchEditor(accessor: ServicesAccessor): Promise<void>;
+export declare const openNewSearchEditor: (accessor: ServicesAccessor, _args?: OpenSearchEditorArgs, toSide?: boolean) => Promise<void>;
+export declare const createEditorFromSearchResult: (accessor: ServicesAccessor, searchResult: SearchResult, rawIncludePattern: string, rawExcludePattern: string, onlySearchInOpenEditors: boolean) => Promise<void>;

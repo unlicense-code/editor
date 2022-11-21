@@ -1,0 +1,50 @@
+import { ICodeEditor } from 'vs/editor/browser/editorBrowser';
+import { Range } from 'vs/editor/common/core/range';
+import { IEditorContribution } from 'vs/editor/common/editorCommon';
+import { ILanguageConfigurationService } from 'vs/editor/common/languages/languageConfigurationRegistry';
+import { ILanguageFeaturesService } from 'vs/editor/common/services/languageFeatures';
+import { OvertypingCapturer } from 'vs/editor/contrib/suggest/browser/suggestOvertypingCapturer';
+import { IContextKeyService, RawContextKey } from 'vs/platform/contextkey/common/contextkey';
+import { ILogService } from 'vs/platform/log/common/log';
+import { ISnippetEdit } from './snippetSession';
+export interface ISnippetInsertOptions {
+    overwriteBefore: number;
+    overwriteAfter: number;
+    adjustWhitespace: boolean;
+    undoStopBefore: boolean;
+    undoStopAfter: boolean;
+    clipboardText: string | undefined;
+    overtypingCapturer: OvertypingCapturer | undefined;
+}
+export declare class SnippetController2 implements IEditorContribution {
+    private readonly _editor;
+    private readonly _logService;
+    private readonly _languageFeaturesService;
+    private readonly _languageConfigurationService;
+    static readonly ID = "snippetController2";
+    static get(editor: ICodeEditor): SnippetController2 | null;
+    static readonly InSnippetMode: RawContextKey<false>;
+    static readonly HasNextTabstop: RawContextKey<false>;
+    static readonly HasPrevTabstop: RawContextKey<false>;
+    private readonly _inSnippet;
+    private readonly _hasNextTabstop;
+    private readonly _hasPrevTabstop;
+    private _session?;
+    private _snippetListener;
+    private _modelVersionId;
+    private _currentChoice?;
+    private _choiceCompletionItemProvider?;
+    constructor(_editor: ICodeEditor, _logService: ILogService, _languageFeaturesService: ILanguageFeaturesService, contextKeyService: IContextKeyService, _languageConfigurationService: ILanguageConfigurationService);
+    dispose(): void;
+    apply(edits: ISnippetEdit[], opts?: Partial<ISnippetInsertOptions>): void;
+    insert(template: string, opts?: Partial<ISnippetInsertOptions>): void;
+    private _doInsert;
+    private _updateState;
+    private _handleChoice;
+    finish(): void;
+    cancel(resetSelection?: boolean): void;
+    prev(): void;
+    next(): void;
+    isInSnippet(): boolean;
+    getSessionEnclosingRange(): Range | undefined;
+}

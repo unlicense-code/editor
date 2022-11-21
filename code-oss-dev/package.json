@@ -1,0 +1,6 @@
+{ 
+  "name": "code-oss-dev", 
+  "description": "wrapper package for bloated code-oss-dev mainly for incremental migration",
+  "scripts": { "install": "git clone --single-branch https://github.com/microsoft/vscode build/repo || echo 'some thing went wrong nothing new'" }
+
+}

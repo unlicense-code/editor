@@ -1,0 +1,52 @@
+import { Disposable, DisposableStore } from 'vs/base/common/lifecycle';
+import { IOpenerService } from 'vs/platform/opener/common/opener';
+import { DiffElementViewModelBase } from 'vs/workbench/contrib/notebook/browser/diff/diffElementViewModel';
+import { DiffSide, INotebookTextDiffEditor } from 'vs/workbench/contrib/notebook/browser/diff/notebookDiffEditorBrowser';
+import { ICellOutputViewModel, IInsetRenderOutput } from 'vs/workbench/contrib/notebook/browser/notebookBrowser';
+import { NotebookTextModel } from 'vs/workbench/contrib/notebook/common/model/notebookTextModel';
+import { INotebookService } from 'vs/workbench/contrib/notebook/common/notebookService';
+import { DiffNestedCellViewModel } from 'vs/workbench/contrib/notebook/browser/diff/diffNestedCellViewModel';
+import { IQuickInputService } from 'vs/platform/quickinput/common/quickInput';
+export declare class OutputElement extends Disposable {
+    private _notebookEditor;
+    private _notebookTextModel;
+    private _notebookService;
+    private _quickInputService;
+    private _diffElementViewModel;
+    private _diffSide;
+    private _nestedCell;
+    private _outputContainer;
+    readonly output: ICellOutputViewModel;
+    readonly resizeListener: DisposableStore;
+    domNode: HTMLElement;
+    renderResult?: IInsetRenderOutput;
+    constructor(_notebookEditor: INotebookTextDiffEditor, _notebookTextModel: NotebookTextModel, _notebookService: INotebookService, _quickInputService: IQuickInputService, _diffElementViewModel: DiffElementViewModelBase, _diffSide: DiffSide, _nestedCell: DiffNestedCellViewModel, _outputContainer: HTMLElement, output: ICellOutputViewModel);
+    render(index: number, beforeElement?: HTMLElement): void;
+    private _renderMissingRenderer;
+    private _renderSearchForMimetype;
+    private _renderMessage;
+    private pickActiveMimeTypeRenderer;
+    private generateRendererInfo;
+    getCellOutputCurrentIndex(): number;
+    updateHeight(index: number, height: number): void;
+    getOutputOffsetInContainer(index: number): number;
+    getOutputOffsetInCell(index: number): number;
+}
+export declare class OutputContainer extends Disposable {
+    private _editor;
+    private _notebookTextModel;
+    private _diffElementViewModel;
+    private _nestedCellViewModel;
+    private _diffSide;
+    private _outputContainer;
+    private _notebookService;
+    private readonly _quickInputService;
+    readonly _openerService: IOpenerService;
+    private _outputEntries;
+    constructor(_editor: INotebookTextDiffEditor, _notebookTextModel: NotebookTextModel, _diffElementViewModel: DiffElementViewModelBase, _nestedCellViewModel: DiffNestedCellViewModel, _diffSide: DiffSide, _outputContainer: HTMLElement, _notebookService: INotebookService, _quickInputService: IQuickInputService, _openerService: IOpenerService);
+    private _updateOutputs;
+    render(): void;
+    showOutputs(): void;
+    hideOutputs(): void;
+    private _renderOutput;
+}

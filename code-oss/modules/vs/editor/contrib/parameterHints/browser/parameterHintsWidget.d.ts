@@ -1,0 +1,36 @@
+import { Disposable } from 'vs/base/common/lifecycle';
+import 'vs/css!./parameterHints';
+import { ICodeEditor, IContentWidget, IContentWidgetPosition } from 'vs/editor/browser/editorBrowser';
+import * as languages from 'vs/editor/common/languages';
+import { ILanguageService } from 'vs/editor/common/languages/language';
+import { ParameterHintsModel } from 'vs/editor/contrib/parameterHints/browser/parameterHintsModel';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { IOpenerService } from 'vs/platform/opener/common/opener';
+export declare class ParameterHintsWidget extends Disposable implements IContentWidget {
+    private readonly editor;
+    private readonly model;
+    private static readonly ID;
+    private readonly markdownRenderer;
+    private readonly renderDisposeables;
+    private readonly keyVisible;
+    private readonly keyMultipleSignatures;
+    private domNodes?;
+    private visible;
+    private announcedLabel;
+    allowEditorOverflow: boolean;
+    constructor(editor: ICodeEditor, model: ParameterHintsModel, contextKeyService: IContextKeyService, openerService: IOpenerService, languageService: ILanguageService);
+    private createParameterHintDOMNodes;
+    show(): void;
+    hide(): void;
+    getPosition(): IContentWidgetPosition | null;
+    render(hints: languages.SignatureHelp): void;
+    private renderMarkdownDocs;
+    private hasDocs;
+    private renderParameters;
+    private getParameterLabelOffsets;
+    next(): void;
+    previous(): void;
+    getDomNode(): HTMLElement;
+    getId(): string;
+    private updateMaxHeight;
+}

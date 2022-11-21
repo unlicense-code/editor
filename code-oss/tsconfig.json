@@ -1,0 +1,66 @@
+{ "references": [{"path": "code"}]}
+// { // tsc -p ./tsconfig.json
+// 	"extends": "./vscode/build/tsconfig.build.json",
+//     "compilerOptions": {
+// 		"target": "es2022",
+// 		"lib": [
+// 			"ES2022"
+// 		],
+// 		"outDir": "./",
+//         "moduleResolution": "node",
+//         "module": "commonjs",
+// 		"removeComments": false,
+// 		"preserveConstEnums": true,
+// 		"sourceMap": false,
+// 		"inlineSourceMap": true,
+// 		"resolveJsonModule": true,
+// 		// enable JavaScript type checking for the language service
+// 		// use the tsconfig.build.json for compiling which disable JavaScript
+// 		// type checking so that JavaScript file are not transpiled
+// 		"exactOptionalPropertyTypes": false,
+// 		"useUnknownInCatchVariables": false,
+//         "declaration": true,
+//         "noEmitOnError": false,
+//         "noUnusedLocals": true,
+// 		"noUnusedParameters": true,
+// 		"newLine": "lf",
+//         "allowJs": false,
+//         "checkJs": false,
+//         "noEmit": false
+// 	},
+//     "types": [
+//         // vscode-build/repos/vscode/src/tsconfig.monaco.json
+//         "trusted-types",
+//         "wicg-file-system-access"
+//     ],
+// 	"include": [
+// 		"./vscode/build/**/*.ts",
+//         //"./vscode/src/vs/**/*.ts",
+// 		// "./vscode/build/**/*.js"
+//         // vscode-build/repos/vscode/src/tsconfig.monaco.json
+//         "./vscode/src/typings",
+// 		"./vscode/src/vs",
+// 		"./vscode/src/vscode-dts/vscode.proposed.*.d.ts",
+//         "./vscode/src/vscode-dts/vscode.d.ts",
+//         "./vscode/src/typings/require.d.ts",
+//         "./vscode/src/typings/thenable.d.ts",
+//         "./vscode/src/vs/loader.d.ts",
+//         "./vscode/src/vs/monaco.d.ts",
+//         "./vscode/src/vs/editor/*",
+//         "./vscode/src/vs/base/common/*",
+//         "./vscode/src/vs/base/browser/*",
+//         "./vscode/src/vs/platform/*/common/*",
+//         "./vscode/src/vs/platform/*/browser/*"
+// 	],
+// 	"exclude": [
+// 		"node_modules/**", "lib/eslint-plugin-vscode/**/*",
+//         // vscode-build/repos/vscode/src/tsconfig.monaco.json       
+//         "./vscode/src/node_modules/*",
+//         "./vscode/src/vs/platform/files/browser/htmlFileSystemProvider.ts",
+//         "./vscode/src/vs/platform/files/browser/webFileSystemAccess.ts",
+//         "./vscode/src/vs/platform/telemetry/*",
+//         "./vscode/src/vs/platform/assignment/*"
+// 	]
+// }
+
+

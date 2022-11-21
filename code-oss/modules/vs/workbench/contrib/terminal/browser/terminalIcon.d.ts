@@ -1,0 +1,14 @@
+import { ServicesAccessor } from 'vs/platform/instantiation/common/instantiation';
+import { IExtensionTerminalProfile, ITerminalProfile } from 'vs/platform/terminal/common/terminal';
+import { ColorScheme } from 'vs/platform/theme/common/theme';
+import { IColorTheme } from 'vs/platform/theme/common/themeService';
+import { ITerminalInstance } from 'vs/workbench/contrib/terminal/browser/terminal';
+export declare function getColorClass(colorKey: string): string;
+export declare function getColorClass(profile: ITerminalProfile): string;
+export declare function getColorClass(terminal: ITerminalInstance): string | undefined;
+export declare function getColorClass(extensionTerminalProfile: IExtensionTerminalProfile): string | undefined;
+export declare function getStandardColors(colorTheme: IColorTheme): string[];
+export declare function getColorStyleElement(colorTheme: IColorTheme): HTMLElement;
+export declare function getColorStyleContent(colorTheme: IColorTheme, editor?: boolean): string;
+export declare function getUriClasses(terminal: ITerminalInstance | IExtensionTerminalProfile | ITerminalProfile, colorScheme: ColorScheme, extensionContributed?: boolean): string[] | undefined;
+export declare function getIconId(accessor: ServicesAccessor, terminal: ITerminalInstance | IExtensionTerminalProfile | ITerminalProfile): string;

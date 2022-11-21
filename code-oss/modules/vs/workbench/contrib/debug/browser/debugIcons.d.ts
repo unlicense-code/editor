@@ -1,0 +1,70 @@
+export declare const debugConsoleViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const runViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const variablesViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const watchViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const callStackViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const breakpointsViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const loadedScriptsViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const breakpoint: {
+    regular: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    disabled: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    unverified: import("../../../../platform/theme/common/themeService").ThemeIcon;
+};
+export declare const functionBreakpoint: {
+    regular: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    disabled: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    unverified: import("../../../../platform/theme/common/themeService").ThemeIcon;
+};
+export declare const conditionalBreakpoint: {
+    regular: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    disabled: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    unverified: import("../../../../platform/theme/common/themeService").ThemeIcon;
+};
+export declare const dataBreakpoint: {
+    regular: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    disabled: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    unverified: import("../../../../platform/theme/common/themeService").ThemeIcon;
+};
+export declare const logBreakpoint: {
+    regular: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    disabled: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    unverified: import("../../../../platform/theme/common/themeService").ThemeIcon;
+};
+export declare const debugBreakpointHint: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugBreakpointUnsupported: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const allBreakpoints: {
+    regular: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    disabled: import("../../../../platform/theme/common/themeService").ThemeIcon;
+    unverified: import("../../../../platform/theme/common/themeService").ThemeIcon;
+}[];
+export declare const debugStackframe: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStackframeFocused: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugGripper: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugRestartFrame: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStop: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugDisconnect: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugRestart: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStepOver: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStepInto: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStepOut: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStepBack: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugPause: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugContinue: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugReverseContinue: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugRun: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugStart: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugConfigure: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugConsole: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugRemoveConfig: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugCollapseAll: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const callstackViewSession: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugConsoleClearAll: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const watchExpressionsRemoveAll: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const watchExpressionRemove: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const watchExpressionsAdd: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const watchExpressionsAddFuncBreakpoint: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const breakpointsRemoveAll: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const breakpointsActivate: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugConsoleEvaluationInput: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugConsoleEvaluationPrompt: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const debugInspectMemory: import("../../../../platform/theme/common/themeService").ThemeIcon;

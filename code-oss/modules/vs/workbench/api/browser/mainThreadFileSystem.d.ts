@@ -1,0 +1,37 @@
+import { UriComponents } from 'vs/base/common/uri';
+import { FileSystemProviderCapabilities, IStat, IWatchOptions, FileType, IFileOverwriteOptions, IFileDeleteOptions } from 'vs/platform/files/common/files';
+import { IExtHostContext } from 'vs/workbench/services/extensions/common/extHostCustomers';
+import { IFileChangeDto, MainThreadFileSystemShape } from '../common/extHost.protocol';
+import { VSBuffer } from 'vs/base/common/buffer';
+import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IWorkbenchFileService } from 'vs/workbench/services/files/common/files';
+export declare class MainThreadFileSystem implements MainThreadFileSystemShape {
+    private readonly _fileService;
+    private readonly _contextService;
+    private readonly _logService;
+    private readonly _configurationService;
+    private readonly _proxy;
+    private readonly _fileProvider;
+    private readonly _disposables;
+    private readonly _watches;
+    constructor(extHostContext: IExtHostContext, _fileService: IWorkbenchFileService, _contextService: IWorkspaceContextService, _logService: ILogService, _configurationService: IConfigurationService);
+    dispose(): void;
+    $registerFileSystemProvider(handle: number, scheme: string, capabilities: FileSystemProviderCapabilities): Promise<void>;
+    $unregisterProvider(handle: number): void;
+    $onFileSystemChange(handle: number, changes: IFileChangeDto[]): void;
+    $stat(uri: UriComponents): Promise<IStat>;
+    $readdir(uri: UriComponents): Promise<[string, FileType][]>;
+    private static _asFileType;
+    $readFile(uri: UriComponents): Promise<VSBuffer>;
+    $writeFile(uri: UriComponents, content: VSBuffer): Promise<void>;
+    $rename(source: UriComponents, target: UriComponents, opts: IFileOverwriteOptions): Promise<void>;
+    $copy(source: UriComponents, target: UriComponents, opts: IFileOverwriteOptions): Promise<void>;
+    $mkdir(uri: UriComponents): Promise<void>;
+    $delete(uri: UriComponents, opts: IFileDeleteOptions): Promise<void>;
+    private static _handleError;
+    $ensureActivation(scheme: string): Promise<void>;
+    $watch(extensionId: string, session: number, resource: UriComponents, unvalidatedOpts: IWatchOptions): Promise<void>;
+    $unwatch(session: number): void;
+}

@@ -1,0 +1,42 @@
+import { IActionViewItem } from 'vs/base/browser/ui/actionbar/actionbar';
+import { IAction } from 'vs/base/common/actions';
+import 'vs/css!./media/debugViewlet';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { IContextMenuService, IContextViewService } from 'vs/platform/contextview/browser/contextView';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { IProgressService } from 'vs/platform/progress/common/progress';
+import { IStorageService } from 'vs/platform/storage/common/storage';
+import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
+import { IThemeService } from 'vs/platform/theme/common/themeService';
+import { IWorkspaceContextService } from 'vs/platform/workspace/common/workspace';
+import { ViewPane } from 'vs/workbench/browser/parts/views/viewPane';
+import { ViewPaneContainer } from 'vs/workbench/browser/parts/views/viewPaneContainer';
+import { IViewDescriptorService } from 'vs/workbench/common/views';
+import { IDebugService } from 'vs/workbench/contrib/debug/common/debug';
+import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
+import { IWorkbenchLayoutService } from 'vs/workbench/services/layout/browser/layoutService';
+export declare class DebugViewPaneContainer extends ViewPaneContainer {
+    private readonly progressService;
+    private readonly debugService;
+    private readonly contextViewService;
+    private readonly contextKeyService;
+    private startDebugActionViewItem;
+    private progressResolve;
+    private breakpointView;
+    private paneListeners;
+    private readonly stopActionViewItemDisposables;
+    constructor(layoutService: IWorkbenchLayoutService, telemetryService: ITelemetryService, progressService: IProgressService, debugService: IDebugService, instantiationService: IInstantiationService, contextService: IWorkspaceContextService, storageService: IStorageService, themeService: IThemeService, contextMenuService: IContextMenuService, extensionService: IExtensionService, configurationService: IConfigurationService, contextViewService: IContextViewService, contextKeyService: IContextKeyService, viewDescriptorService: IViewDescriptorService);
+    create(parent: HTMLElement): void;
+    focus(): void;
+    getActionViewItem(action: IAction): IActionViewItem | undefined;
+    focusView(id: string): void;
+    private onDebugServiceStateChange;
+    addPanes(panes: {
+        pane: ViewPane;
+        size: number;
+        index?: number;
+    }[]): void;
+    removePanes(panes: ViewPane[]): void;
+    private updateBreakpointsMaxSize;
+}

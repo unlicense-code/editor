@@ -1,0 +1,14 @@
+import 'vs/workbench/contrib/search/browser/search.contribution';
+import 'vs/editor/contrib/codeAction/browser/codeAction';
+import 'vs/editor/contrib/codelens/browser/codelens';
+import 'vs/editor/contrib/colorPicker/browser/color';
+import 'vs/editor/contrib/format/browser/format';
+import 'vs/editor/contrib/gotoSymbol/browser/goToCommands';
+import 'vs/editor/contrib/documentSymbols/browser/documentSymbols';
+import 'vs/editor/contrib/hover/browser/getHover';
+import 'vs/editor/contrib/links/browser/getLinks';
+import 'vs/editor/contrib/parameterHints/browser/provideSignatureHelp';
+import 'vs/editor/contrib/smartSelect/browser/smartSelect';
+import 'vs/editor/contrib/suggest/browser/suggest';
+import 'vs/editor/contrib/rename/browser/rename';
+import 'vs/editor/contrib/inlayHints/browser/inlayHintsController';

@@ -1,0 +1,35 @@
+import 'vs/css!./goToDefinitionAtPosition';
+import { ICodeEditor } from 'vs/editor/browser/editorBrowser';
+import { Position } from 'vs/editor/common/core/position';
+import { IEditorContribution } from 'vs/editor/common/editorCommon';
+import { ILanguageService } from 'vs/editor/common/languages/language';
+import { ITextModelService } from 'vs/editor/common/services/resolverService';
+import { ILanguageFeaturesService } from 'vs/editor/common/services/languageFeatures';
+export declare class GotoDefinitionAtPositionEditorContribution implements IEditorContribution {
+    private readonly textModelResolverService;
+    private readonly languageService;
+    private readonly languageFeaturesService;
+    static readonly ID = "editor.contrib.gotodefinitionatposition";
+    static readonly MAX_SOURCE_PREVIEW_LINES = 8;
+    private readonly editor;
+    private readonly toUnhook;
+    private readonly toUnhookForKeyboard;
+    private readonly linkDecorations;
+    private currentWordAtPosition;
+    private previousPromise;
+    constructor(editor: ICodeEditor, textModelResolverService: ITextModelService, languageService: ILanguageService, languageFeaturesService: ILanguageFeaturesService);
+    static get(editor: ICodeEditor): GotoDefinitionAtPositionEditorContribution | null;
+    startFindDefinitionFromCursor(position: Position): Promise<void>;
+    private startFindDefinitionFromMouse;
+    private startFindDefinition;
+    private getPreviewValue;
+    private stripIndentationFromPreviewRange;
+    private getPreviewRangeBasedOnIndentation;
+    private addDecoration;
+    private removeLinkDecorations;
+    private isEnabled;
+    private findDefinition;
+    private gotoDefinition;
+    private isInPeekEditor;
+    dispose(): void;
+}

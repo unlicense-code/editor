@@ -1,0 +1,36 @@
+import { Emitter, Event } from 'vs/base/common/event';
+import { Disposable, IDisposable } from 'vs/base/common/lifecycle';
+import { URI } from 'vs/base/common/uri';
+import { LanguagesRegistry } from 'vs/editor/common/services/languagesRegistry';
+import { ILanguageNameIdPair, ILanguageSelection, ILanguageService, ILanguageIcon, ILanguageExtensionPoint } from 'vs/editor/common/languages/language';
+import { ILanguageIdCodec } from 'vs/editor/common/languages';
+export declare class LanguageService extends Disposable implements ILanguageService {
+    _serviceBrand: undefined;
+    static instanceCount: number;
+    private readonly _encounteredLanguages;
+    protected readonly _registry: LanguagesRegistry;
+    readonly languageIdCodec: ILanguageIdCodec;
+    private readonly _onDidEncounterLanguage;
+    readonly onDidEncounterLanguage: Event<string>;
+    protected readonly _onDidChange: Emitter<void>;
+    readonly onDidChange: Event<void>;
+    constructor(warnOnOverwrite?: boolean);
+    dispose(): void;
+    registerLanguage(def: ILanguageExtensionPoint): IDisposable;
+    isRegisteredLanguageId(languageId: string | null | undefined): boolean;
+    getRegisteredLanguageIds(): string[];
+    getSortedRegisteredLanguageNames(): ILanguageNameIdPair[];
+    getLanguageName(languageId: string): string | null;
+    getMimeType(languageId: string): string | null;
+    getIcon(languageId: string): ILanguageIcon | null;
+    getExtensions(languageId: string): ReadonlyArray<string>;
+    getFilenames(languageId: string): ReadonlyArray<string>;
+    getConfigurationFiles(languageId: string): ReadonlyArray<URI>;
+    getLanguageIdByLanguageName(languageName: string): string | null;
+    getLanguageIdByMimeType(mimeType: string | null | undefined): string | null;
+    guessLanguageIdByFilepathOrFirstLine(resource: URI | null, firstLine?: string): string | null;
+    createById(languageId: string | null | undefined): ILanguageSelection;
+    createByMimeType(mimeType: string | null | undefined): ILanguageSelection;
+    createByFilepathOrFirstLine(resource: URI | null, firstLine?: string): ILanguageSelection;
+    private _createAndGetLanguageIdentifier;
+}

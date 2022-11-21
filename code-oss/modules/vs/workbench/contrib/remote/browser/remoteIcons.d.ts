@@ -1,0 +1,17 @@
+export declare const getStartedIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const documentationIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const feedbackIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const reviewIssuesIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const reportIssuesIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const remoteExplorerViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const portsViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const portIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const privatePortIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const forwardPortIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const stopForwardIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const openBrowserIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const openPreviewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const copyAddressIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const labelPortIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const forwardedPortWithoutProcessIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const forwardedPortWithProcessIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;

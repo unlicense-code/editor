@@ -1,0 +1,124 @@
+{
+	"extends": "./tsconfig.base.json",
+	"references": [
+		{ "path": "rollup-configs" },
+		{ "path": "../code-oss-dev/src/tsconfig.base.json" },
+		{ "path": "../code-oss-dev/src/" },
+		{ "path": "../code-oss-dev/src/tsconfig.monaco.json" },
+		{ "path": "../code-oss-dev/src/tsconfig.vscode-proposed-dts.json" },
+		{ "path": "../code-oss-dev/src/tsec.json" },
+		// Included by above { "path": "../code-oss-dev/src/tsconfig.vscode-dts.json" }
+	],
+	"compilerOptions": {
+		"baseUrl": "../code-oss-dev/src",
+		"paths": {
+			"vs/*": [
+				"./vs/*"
+			]
+		},
+		"rootDir": "../code-oss-dev/src",
+		"composite": true,
+        "removeComments": false,
+		"preserveConstEnums": true,
+		"sourceMap": false,
+		"outDir": "./",
+		"noEmit": false,
+		"module": "ESNext",
+		"target": "ES2022",
+		"lib": [
+			"ESNext",
+			"DOM",
+			"DOM.Iterable",
+			"WebWorker.ImportScripts"
+		],
+		"types": [
+			"keytar",
+			"mocha",
+			"semver",
+			"sinon",
+			"winreg",
+			"trusted-types", // npm i -D @types/trusted-types
+			"wicg-file-system-access"
+		],
+		"plugins": [
+			{
+				"name": "tsec",
+				"exemptionConfig": "../code-oss-dev/src/tsec.exemptions.json"
+			}
+		]
+	},
+	"include": [
+		"../code-oss-dev/src/typings",
+		"../code-oss-dev/src/vs",
+		"../code-oss-dev/src/vscode-dts/vscode.proposed.*.d.ts",
+		"../code-oss-dev/src/vscode-dts/vscode.d.ts"
+	],
+	"exclude": [] // Else we can not build in ../ gets auto excluded
+}
+
+
+
+// { // tsc -p ./tsconfig.json
+//     "compilerOptions": {
+// 		"target": "es2022",
+// 		"lib": [
+// 			"ES2022"
+// 		],
+// 		"baseUrl": "./code-oss-dev/src",
+//         "rootDir": "./code-oss-dev/src",
+//         "outDir": "./packages",
+//         "moduleResolution": "node",
+//         "module": "commonjs",
+// 		"removeComments": false,
+// 		"preserveConstEnums": true,
+// 		"sourceMap": false,
+// 		"inlineSourceMap": true,
+// 		"resolveJsonModule": true,
+// 		// enable JavaScript type checking for the language service
+// 		// use the tsconfig.build.json for compiling which disable JavaScript
+// 		// type checking so that JavaScript file are not transpiled
+// 		"exactOptionalPropertyTypes": false,
+// 		"useUnknownInCatchVariables": false,
+//         "declaration": true,
+//         "noEmitOnError": false,
+// 		"newLine": "lf",
+//         "allowJs": false,
+//         "checkJs": false,
+//         "noEmit": false
+// 	},
+//     "types": [
+//         // .../vscode/src/tsconfig.monaco.json
+//         "trusted-types",
+//         "wicg-file-system-access"
+//     ],
+// 	"include": [
+// 		//".../vscode/build/**/*.ts",
+//         //".../vscode/src/vs/**/*.ts",
+// 		// ".../vscode/build/**/*.js"
+//         // vscode-build/repos/vscode/src/tsconfig.monaco.json
+//         "./code-oss-dev/src/typings/*.d.ts",
+// 		"./code-oss-dev/src/vs/*.ts",
+// 		"./code-oss-dev/src/vscode-dts/vscode.proposed.*.d.ts",
+//         "./code-oss-dev/src/vscode-dts/vscode.d.ts",
+//         "./code-oss-dev/src/typings/require.d.ts",
+//         "./code-oss-dev/src/typings/thenable.d.ts",
+//         "./code-oss-dev/src/vs/loader.d.ts",
+//         "./code-oss-dev/src/vs/monaco.d.ts",
+//         "./code-oss-dev/src/vs/editor/*",
+//         "./code-oss-dev/src/vs/base/common/*",
+//         "./code-oss-dev/src/vs/base/browser/*",
+//         "./code-oss-dev/src/vs/platform/*/common/*",
+//         "./code-oss-dev/src/vs/platform/*/browser/*"
+// 	],
+// 	"exclude": [
+// 		//"**", "../vscode/lib/eslint-plugin-vscode/**/*",
+//         // vscode-build/repos/vscode/src/tsconfig.monaco.json       
+//         //"./code-oss-dev/src/*",
+//         "./code-oss-dev/src/vs/platform/files/browser/htmlFileSystemProvider.ts",
+//         "./code-oss-dev/src/vs/platform/files/browser/webFileSystemAccess.ts",
+//         "./code-oss-dev/src/vs/platform/telemetry/*",
+//         "./code-oss-dev/src/vs/platform/assignment/*"
+// 	]
+// }
+
+

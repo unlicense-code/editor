@@ -1,0 +1,65 @@
+import * as dom from 'vs/base/browser/dom';
+import { Event } from 'vs/base/common/event';
+import { ICodeEditor, IEditorMouseEvent } from 'vs/editor/browser/editorBrowser';
+import { IPosition } from 'vs/editor/common/core/position';
+import { IRange } from 'vs/editor/common/core/range';
+import * as languages from 'vs/editor/common/languages';
+import { ZoneWidget } from 'vs/editor/contrib/zoneWidget/browser/zoneWidget';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+import { IThemeService } from 'vs/platform/theme/common/themeService';
+import { ICommentService } from 'vs/workbench/contrib/comments/browser/commentService';
+import { ICommentThreadWidget } from 'vs/workbench/contrib/comments/common/commentThreadWidget';
+export declare function parseMouseDownInfoFromEvent(e: IEditorMouseEvent): {
+    lineNumber: number;
+} | null;
+export declare function isMouseUpEventDragFromMouseDown(mouseDownInfo: {
+    lineNumber: number;
+} | null, e: IEditorMouseEvent): number | null;
+export declare function isMouseUpEventMatchMouseDown(mouseDownInfo: {
+    lineNumber: number;
+} | null, e: IEditorMouseEvent): number | null;
+export declare class ReviewZoneWidget extends ZoneWidget implements ICommentThreadWidget {
+    private _owner;
+    private _commentThread;
+    private _pendingComment;
+    private themeService;
+    private commentService;
+    private _commentThreadWidget;
+    private readonly _onDidClose;
+    private readonly _onDidCreateThread;
+    private _isExpanded?;
+    private _initialCollapsibleState?;
+    private _commentGlyph?;
+    private readonly _globalToDispose;
+    private _commentThreadDisposables;
+    private _contextKeyService;
+    private _scopedInstantiationService;
+    get owner(): string;
+    get commentThread(): languages.CommentThread;
+    private _commentOptions;
+    constructor(editor: ICodeEditor, _owner: string, _commentThread: languages.CommentThread, _pendingComment: string | null, instantiationService: IInstantiationService, themeService: IThemeService, commentService: ICommentService, contextKeyService: IContextKeyService);
+    get onDidClose(): Event<ReviewZoneWidget | undefined>;
+    get onDidCreateThread(): Event<ReviewZoneWidget>;
+    getPosition(): IPosition | undefined;
+    protected revealLine(lineNumber: number): void;
+    reveal(commentUniqueId?: number, focus?: boolean): void;
+    getPendingComment(): string | null;
+    protected _fillContainer(container: HTMLElement): void;
+    private deleteCommentThread;
+    collapse(): Promise<void>;
+    expand(): Promise<void>;
+    getGlyphPosition(): number;
+    toggleExpand(lineNumber: number): void;
+    update(commentThread: languages.CommentThread<IRange>): Promise<void>;
+    protected _onWidth(widthInPixel: number): void;
+    protected _doLayout(heightInPixel: number, widthInPixel: number): void;
+    display(lineNumber: number): void;
+    private bindCommentThreadListeners;
+    submitComment(): Promise<void>;
+    _refresh(dimensions?: dom.Dimension): void;
+    private _applyTheme;
+    show(rangeOrPos: IRange | IPosition, heightInLines: number): void;
+    hide(): void;
+    dispose(): void;
+}

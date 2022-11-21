@@ -1,0 +1,16 @@
+export declare const searchDetailsIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchShowContextIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchHideReplaceIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchShowReplaceIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchReplaceAllIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchReplaceIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchRemoveIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchRefreshIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchCollapseAllIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchExpandAllIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchShowAsTree: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchShowAsList: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchClearIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchStopIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchViewIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;
+export declare const searchNewEditorIcon: import("../../../../platform/theme/common/themeService").ThemeIcon;

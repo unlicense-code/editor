@@ -1,0 +1,11 @@
+export declare const mainLogChannelId = "mainLog";
+export declare const sharedLogChannelId = "sharedLog";
+export declare const rendererLogChannelId = "rendererLog";
+export declare const telemetryLogChannelId = "telemetryLog";
+export declare const extensionTelemetryLogChannelId = "extensionTelemetryLog";
+export declare const userDataSyncLogChannelId = "userDataSyncLog";
+export declare const editSessionsLogChannelId = "editSessionsSyncLog";
+export declare const remoteTunnelLogChannelId = "remoteTunnelLog";
+export declare const remoteServerLog = "remoteServerLog";
+export declare const remotePtyHostLog = "remotePtyHostLog";
+export declare const showWindowLogActionId = "workbench.action.showWindowLog";

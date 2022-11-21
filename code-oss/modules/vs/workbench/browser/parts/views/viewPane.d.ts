@@ -1,0 +1,130 @@
+import 'vs/css!./media/paneviewlet';
+import { Event, Emitter } from 'vs/base/common/event';
+import { Action, IAction, IActionRunner } from 'vs/base/common/actions';
+import { IActionViewItem } from 'vs/base/browser/ui/actionbar/actionbar';
+import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+import { IContextMenuService } from 'vs/platform/contextview/browser/contextView';
+import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
+import { IThemeService, ThemeIcon } from 'vs/platform/theme/common/themeService';
+import { IPaneOptions, Pane, IPaneStyles } from 'vs/base/browser/ui/splitview/paneview';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { IView, IViewDescriptorService } from 'vs/workbench/common/views';
+import { IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+import { IInstantiationService, ServicesAccessor } from 'vs/platform/instantiation/common/instantiation';
+import { MenuId, Action2, IAction2Options } from 'vs/platform/actions/common/actions';
+import { IOpenerService } from 'vs/platform/opener/common/opener';
+import { IProgressIndicator } from 'vs/platform/progress/common/progress';
+import { CompositeMenuActions } from 'vs/workbench/browser/actions';
+import { IDropdownMenuActionViewItemOptions } from 'vs/base/browser/ui/dropdown/dropdownActionViewItem';
+import { FilterWidget, IFilterWidgetOptions } from 'vs/workbench/browser/parts/views/viewFilter';
+export interface IViewPaneOptions extends IPaneOptions {
+    id: string;
+    showActionsAlways?: boolean;
+    titleMenuId?: MenuId;
+    donotForwardArgs?: boolean;
+}
+export interface IFilterViewPaneOptions extends IViewPaneOptions {
+    filterOptions: IFilterWidgetOptions;
+}
+export declare const VIEWPANE_FILTER_ACTION: Action;
+export declare abstract class ViewPane extends Pane implements IView {
+    protected keybindingService: IKeybindingService;
+    protected contextMenuService: IContextMenuService;
+    protected readonly configurationService: IConfigurationService;
+    protected contextKeyService: IContextKeyService;
+    protected viewDescriptorService: IViewDescriptorService;
+    protected instantiationService: IInstantiationService;
+    protected openerService: IOpenerService;
+    protected themeService: IThemeService;
+    protected telemetryService: ITelemetryService;
+    private static readonly AlwaysShowActionsConfig;
+    private _onDidFocus;
+    readonly onDidFocus: Event<void>;
+    private _onDidBlur;
+    readonly onDidBlur: Event<void>;
+    private _onDidChangeBodyVisibility;
+    readonly onDidChangeBodyVisibility: Event<boolean>;
+    protected _onDidChangeTitleArea: Emitter<void>;
+    readonly onDidChangeTitleArea: Event<void>;
+    protected _onDidChangeViewWelcomeState: Emitter<void>;
+    readonly onDidChangeViewWelcomeState: Event<void>;
+    private _isVisible;
+    readonly id: string;
+    private _title;
+    get title(): string;
+    private _titleDescription;
+    get titleDescription(): string | undefined;
+    readonly menuActions: CompositeMenuActions;
+    private progressBar;
+    private progressIndicator;
+    private toolbar?;
+    private readonly showActionsAlways;
+    private headerContainer?;
+    private titleContainer?;
+    private titleDescriptionContainer?;
+    private iconContainer?;
+    protected twistiesContainer?: HTMLElement;
+    private bodyContainer;
+    private viewWelcomeContainer;
+    private viewWelcomeDisposable;
+    private viewWelcomeController;
+    protected readonly scopedContextKeyService: IContextKeyService;
+    constructor(options: IViewPaneOptions, keybindingService: IKeybindingService, contextMenuService: IContextMenuService, configurationService: IConfigurationService, contextKeyService: IContextKeyService, viewDescriptorService: IViewDescriptorService, instantiationService: IInstantiationService, openerService: IOpenerService, themeService: IThemeService, telemetryService: ITelemetryService);
+    get headerVisible(): boolean;
+    set headerVisible(visible: boolean);
+    setVisible(visible: boolean): void;
+    isVisible(): boolean;
+    isBodyVisible(): boolean;
+    setExpanded(expanded: boolean): boolean;
+    render(): void;
+    protected renderHeader(container: HTMLElement): void;
+    protected getTwistyIcon(expanded: boolean): ThemeIcon;
+    style(styles: IPaneStyles): void;
+    private getIcon;
+    protected renderHeaderTitle(container: HTMLElement, title: string): void;
+    protected updateTitle(title: string): void;
+    private setTitleDescription;
+    protected updateTitleDescription(description?: string | undefined): void;
+    private calculateTitle;
+    private scrollableElement;
+    protected renderBody(container: HTMLElement): void;
+    protected layoutBody(height: number, width: number): void;
+    onDidScrollRoot(): void;
+    getProgressIndicator(): IProgressIndicator;
+    protected getProgressLocation(): string;
+    protected getBackgroundColor(): string;
+    focus(): void;
+    private setActions;
+    private updateActionsVisibility;
+    protected updateActions(): void;
+    getActionViewItem(action: IAction, options?: IDropdownMenuActionViewItemOptions): IActionViewItem | undefined;
+    getActionsContext(): unknown;
+    getActionRunner(): IActionRunner | undefined;
+    getOptimalWidth(): number;
+    saveState(): void;
+    private updateViewWelcome;
+    shouldShowWelcome(): boolean;
+    getFilterWidget(): FilterWidget | undefined;
+    shouldShowFilterInHeader(): boolean;
+}
+export declare abstract class FilterViewPane extends ViewPane {
+    readonly filterWidget: FilterWidget;
+    private dimension;
+    private filterContainer;
+    constructor(options: IFilterViewPaneOptions, keybindingService: IKeybindingService, contextMenuService: IContextMenuService, configurationService: IConfigurationService, contextKeyService: IContextKeyService, viewDescriptorService: IViewDescriptorService, instantiationService: IInstantiationService, openerService: IOpenerService, themeService: IThemeService, telemetryService: ITelemetryService);
+    getFilterWidget(): FilterWidget;
+    protected renderBody(container: HTMLElement): void;
+    protected layoutBody(height: number, width: number): void;
+    shouldShowFilterInHeader(): boolean;
+    protected abstract layoutBodyContent(height: number, width: number): void;
+}
+export declare abstract class ViewAction<T extends IView> extends Action2 {
+    readonly desc: Readonly<IAction2Options> & {
+        viewId: string;
+    };
+    constructor(desc: Readonly<IAction2Options> & {
+        viewId: string;
+    });
+    run(accessor: ServicesAccessor, ...args: any[]): any;
+    abstract runInView(accessor: ServicesAccessor, view: T, ...args: any[]): any;
+}

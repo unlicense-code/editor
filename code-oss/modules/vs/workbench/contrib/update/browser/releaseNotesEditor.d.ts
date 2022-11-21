@@ -1,0 +1,34 @@
+import 'vs/css!./media/releasenoteseditor';
+import { ILanguageService } from 'vs/editor/common/languages/language';
+import { IEnvironmentService } from 'vs/platform/environment/common/environment';
+import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+import { IOpenerService } from 'vs/platform/opener/common/opener';
+import { IProductService } from 'vs/platform/product/common/productService';
+import { IRequestService } from 'vs/platform/request/common/request';
+import { IWebviewWorkbenchService } from 'vs/workbench/contrib/webviewPanel/browser/webviewWorkbenchService';
+import { IEditorGroupsService } from 'vs/workbench/services/editor/common/editorGroupsService';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+export declare class ReleaseNotesManager {
+    private readonly _environmentService;
+    private readonly _keybindingService;
+    private readonly _languageService;
+    private readonly _openerService;
+    private readonly _requestService;
+    private readonly _configurationService;
+    private readonly _editorService;
+    private readonly _editorGroupService;
+    private readonly _webviewWorkbenchService;
+    private readonly _extensionService;
+    private readonly _productService;
+    private readonly _releaseNotesCache;
+    private _currentReleaseNotes;
+    private _lastText;
+    constructor(_environmentService: IEnvironmentService, _keybindingService: IKeybindingService, _languageService: ILanguageService, _openerService: IOpenerService, _requestService: IRequestService, _configurationService: IConfigurationService, _editorService: IEditorService, _editorGroupService: IEditorGroupsService, _webviewWorkbenchService: IWebviewWorkbenchService, _extensionService: IExtensionService, _productService: IProductService);
+    show(version: string): Promise<boolean>;
+    private loadReleaseNotes;
+    private onDidClickLink;
+    private addGAParameters;
+    private renderBody;
+}

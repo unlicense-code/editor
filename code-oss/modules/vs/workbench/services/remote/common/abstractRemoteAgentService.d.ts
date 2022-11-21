@@ -1,0 +1,36 @@
+import { Disposable } from 'vs/base/common/lifecycle';
+import { IWorkbenchEnvironmentService } from 'vs/workbench/services/environment/common/environmentService';
+import { ISocketFactory } from 'vs/platform/remote/common/remoteAgentConnection';
+import { IExtensionHostExitInfo, IRemoteAgentConnection, IRemoteAgentService } from 'vs/workbench/services/remote/common/remoteAgentService';
+import { IRemoteAuthorityResolverService } from 'vs/platform/remote/common/remoteAuthorityResolver';
+import { IRemoteAgentEnvironment } from 'vs/platform/remote/common/remoteAgentEnvironment';
+import { IDiagnosticInfoOptions, IDiagnosticInfo } from 'vs/platform/diagnostics/common/diagnostics';
+import { ISignService } from 'vs/platform/sign/common/sign';
+import { ILogService } from 'vs/platform/log/common/log';
+import { ITelemetryData, TelemetryLevel } from 'vs/platform/telemetry/common/telemetry';
+import { ExtensionIdentifier, IExtensionDescription } from 'vs/platform/extensions/common/extensions';
+import { IProductService } from 'vs/platform/product/common/productService';
+import { URI } from 'vs/base/common/uri';
+export declare abstract class AbstractRemoteAgentService extends Disposable implements IRemoteAgentService {
+    protected readonly _environmentService: IWorkbenchEnvironmentService;
+    private readonly _remoteAuthorityResolverService;
+    readonly _serviceBrand: undefined;
+    readonly socketFactory: ISocketFactory;
+    private readonly _connection;
+    private _environment;
+    constructor(socketFactory: ISocketFactory, _environmentService: IWorkbenchEnvironmentService, productService: IProductService, _remoteAuthorityResolverService: IRemoteAuthorityResolverService, signService: ISignService, logService: ILogService);
+    getConnection(): IRemoteAgentConnection | null;
+    getEnvironment(): Promise<IRemoteAgentEnvironment | null>;
+    getRawEnvironment(): Promise<IRemoteAgentEnvironment | null>;
+    getExtensionHostExitInfo(reconnectionToken: string): Promise<IExtensionHostExitInfo | null>;
+    whenExtensionsReady(): Promise<void>;
+    scanExtensions(skipExtensions?: ExtensionIdentifier[]): Promise<IExtensionDescription[]>;
+    scanSingleExtension(extensionLocation: URI, isBuiltin: boolean): Promise<IExtensionDescription | null>;
+    getDiagnosticInfo(options: IDiagnosticInfoOptions): Promise<IDiagnosticInfo | undefined>;
+    updateTelemetryLevel(telemetryLevel: TelemetryLevel): Promise<void>;
+    logTelemetry(eventName: string, data: ITelemetryData): Promise<void>;
+    flushTelemetry(): Promise<void>;
+    getRoundTripTime(): Promise<number | undefined>;
+    private _withChannel;
+    private _withTelemetryChannel;
+}

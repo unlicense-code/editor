@@ -1,0 +1,37 @@
+import type { IViewportRange, IBufferRange, ILink, ILinkDecorations, Terminal } from 'xterm';
+import { DisposableStore } from 'vs/base/common/lifecycle';
+import { Event } from 'vs/base/common/event';
+import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
+import { TerminalLinkType } from 'vs/workbench/contrib/terminal/browser/links/links';
+import { IHoverAction } from 'vs/workbench/services/hover/browser/hover';
+export declare const OPEN_FILE_LABEL: string;
+export declare const FOLDER_IN_WORKSPACE_LABEL: string;
+export declare const FOLDER_NOT_IN_WORKSPACE_LABEL: string;
+export declare class TerminalLink extends DisposableStore implements ILink {
+    private readonly _xterm;
+    readonly range: IBufferRange;
+    readonly text: string;
+    readonly actions: IHoverAction[] | undefined;
+    private readonly _viewportY;
+    private readonly _activateCallback;
+    private readonly _tooltipCallback;
+    private readonly _isHighConfidenceLink;
+    readonly label: string | undefined;
+    private readonly _type;
+    private readonly _configurationService;
+    decorations: ILinkDecorations;
+    asyncActivate: Promise<void> | undefined;
+    private _tooltipScheduler;
+    private _hoverListeners;
+    private readonly _onInvalidated;
+    get onInvalidated(): Event<void>;
+    get type(): TerminalLinkType;
+    constructor(_xterm: Terminal, range: IBufferRange, text: string, actions: IHoverAction[] | undefined, _viewportY: number, _activateCallback: (event: MouseEvent | undefined, uri: string) => Promise<void>, _tooltipCallback: (link: TerminalLink, viewportRange: IViewportRange, modifierDownCallback?: () => void, modifierUpCallback?: () => void) => void, _isHighConfidenceLink: boolean, label: string | undefined, _type: TerminalLinkType, _configurationService: IConfigurationService);
+    dispose(): void;
+    activate(event: MouseEvent | undefined, text: string): void;
+    hover(event: MouseEvent, text: string): void;
+    leave(): void;
+    private _enableDecorations;
+    private _disableDecorations;
+    private _isModifierDown;
+}

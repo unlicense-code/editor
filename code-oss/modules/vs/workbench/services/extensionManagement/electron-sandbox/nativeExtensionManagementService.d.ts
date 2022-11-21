@@ -1,0 +1,45 @@
+import { IChannel } from 'vs/base/parts/ipc/common/ipc';
+import { IProfileAwareExtensionManagementService } from 'vs/workbench/services/extensionManagement/common/extensionManagement';
+import { ExtensionManagementChannelClient } from 'vs/platform/extensionManagement/common/extensionManagementIpc';
+import { URI } from 'vs/base/common/uri';
+import { IGalleryExtension, ILocalExtension, InstallOptions, InstallVSIXOptions, UninstallOptions } from 'vs/platform/extensionManagement/common/extensionManagement';
+import { ExtensionType } from 'vs/platform/extensions/common/extensions';
+import { Event } from 'vs/base/common/event';
+import { IUriIdentityService } from 'vs/platform/uriIdentity/common/uriIdentity';
+import { IUserDataProfileService } from 'vs/workbench/services/userDataProfile/common/userDataProfile';
+import { IExtensionsProfileScannerService } from 'vs/platform/extensionManagement/common/extensionsProfileScannerService';
+import { ILogService } from 'vs/platform/log/common/log';
+import { IDownloadService } from 'vs/platform/download/common/download';
+import { IFileService } from 'vs/platform/files/common/files';
+import { INativeEnvironmentService } from 'vs/platform/environment/common/environment';
+export declare class NativeExtensionManagementService extends ExtensionManagementChannelClient implements IProfileAwareExtensionManagementService {
+    private readonly userDataProfileService;
+    private readonly extensionsProfileScannerService;
+    private readonly uriIdentityService;
+    private readonly fileService;
+    private readonly downloadService;
+    private readonly nativeEnvironmentService;
+    private readonly logService;
+    private readonly disposables;
+    get onProfileAwareInstallExtension(): Event<import("vs/platform/extensionManagement/common/extensionManagement").InstallExtensionEvent>;
+    get onInstallExtension(): Event<import("vs/platform/extensionManagement/common/extensionManagement").InstallExtensionEvent>;
+    get onProfileAwareDidInstallExtensions(): Event<readonly import("vs/platform/extensionManagement/common/extensionManagement").InstallExtensionResult[]>;
+    get onDidInstallExtensions(): Event<import("vs/platform/extensionManagement/common/extensionManagement").InstallExtensionResult[]>;
+    get onProfileAwareUninstallExtension(): Event<import("vs/platform/extensionManagement/common/extensionManagement").UninstallExtensionEvent>;
+    get onUninstallExtension(): Event<import("vs/platform/extensionManagement/common/extensionManagement").UninstallExtensionEvent>;
+    get onProfileAwareDidUninstallExtension(): Event<import("vs/platform/extensionManagement/common/extensionManagement").DidUninstallExtensionEvent>;
+    get onDidUninstallExtension(): Event<import("vs/platform/extensionManagement/common/extensionManagement").DidUninstallExtensionEvent>;
+    private readonly _onDidChangeProfile;
+    readonly onDidChangeProfile: Event<{
+        readonly added: ILocalExtension[];
+        readonly removed: ILocalExtension[];
+    }>;
+    constructor(channel: IChannel, userDataProfileService: IUserDataProfileService, extensionsProfileScannerService: IExtensionsProfileScannerService, uriIdentityService: IUriIdentityService, fileService: IFileService, downloadService: IDownloadService, nativeEnvironmentService: INativeEnvironmentService, logService: ILogService);
+    private filterEvent;
+    install(vsix: URI, options?: InstallVSIXOptions): Promise<ILocalExtension>;
+    installFromGallery(extension: IGalleryExtension, installOptions?: InstallOptions): Promise<ILocalExtension>;
+    uninstall(extension: ILocalExtension, options?: UninstallOptions): Promise<void>;
+    getInstalled(type?: ExtensionType | null, profileLocation?: URI): Promise<ILocalExtension[]>;
+    private downloadVsix;
+    private whenProfileChanged;
+}

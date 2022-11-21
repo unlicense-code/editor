@@ -1,0 +1,34 @@
+import { IEnvironmentService } from 'vs/platform/environment/common/environment';
+import { INotificationService } from 'vs/platform/notification/common/notification';
+import { IJSONEditingService } from 'vs/workbench/services/configuration/common/jsonEditing';
+import { ILocaleService } from 'vs/workbench/contrib/localization/common/locale';
+import { ILanguagePackItem, ILanguagePackService } from 'vs/platform/languagePacks/common/languagePacks';
+import { IPaneCompositePartService } from 'vs/workbench/services/panecomposite/browser/panecomposite';
+import { IExtensionManagementService } from 'vs/platform/extensionManagement/common/extensionManagement';
+import { IProgressService } from 'vs/platform/progress/common/progress';
+import { ITextFileService } from 'vs/workbench/services/textfile/common/textfiles';
+import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
+import { IHostService } from 'vs/workbench/services/host/browser/host';
+import { IDialogService } from 'vs/platform/dialogs/common/dialogs';
+import { IProductService } from 'vs/platform/product/common/productService';
+export declare class NativeLocaleService implements ILocaleService {
+    private readonly jsonEditingService;
+    private readonly environmentService;
+    private readonly notificationService;
+    private readonly languagePackService;
+    private readonly paneCompositePartService;
+    private readonly extensionManagementService;
+    private readonly progressService;
+    private readonly textFileService;
+    private readonly editorService;
+    private readonly dialogService;
+    private readonly hostService;
+    private readonly productService;
+    _serviceBrand: undefined;
+    constructor(jsonEditingService: IJSONEditingService, environmentService: IEnvironmentService, notificationService: INotificationService, languagePackService: ILanguagePackService, paneCompositePartService: IPaneCompositePartService, extensionManagementService: IExtensionManagementService, progressService: IProgressService, textFileService: ITextFileService, editorService: IEditorService, dialogService: IDialogService, hostService: IHostService, productService: IProductService);
+    private validateLocaleFile;
+    private writeLocaleValue;
+    setLocale(languagePackItem: ILanguagePackItem): Promise<void>;
+    clearLocalePreference(): Promise<void>;
+    private showRestartDialog;
+}

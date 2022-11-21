@@ -1,0 +1,15 @@
+import { ITerminalQuickFixOptions, ITerminalInstance } from 'vs/workbench/contrib/terminal/browser/terminal';
+import { IExtensionTerminalQuickFix } from 'vs/platform/terminal/common/terminal';
+export declare const GitCommandLineRegex: RegExp;
+export declare const GitPushCommandLineRegex: RegExp;
+export declare const GitTwoDashesRegex: RegExp;
+export declare const AnyCommandLineRegex: RegExp;
+export declare const GitSimilarOutputRegex: RegExp;
+export declare const FreePortOutputRegex: RegExp;
+export declare const GitPushOutputRegex: RegExp;
+export declare const GitCreatePrOutputRegex: RegExp;
+export declare function gitSimilar(): ITerminalQuickFixOptions;
+export declare function gitTwoDashes(): ITerminalQuickFixOptions;
+export declare function freePort(terminalInstance?: Partial<ITerminalInstance>): ITerminalQuickFixOptions;
+export declare function gitPushSetUpstream(): IExtensionTerminalQuickFix;
+export declare function gitCreatePr(): IExtensionTerminalQuickFix;

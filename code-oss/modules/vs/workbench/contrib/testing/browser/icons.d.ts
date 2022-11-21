@@ -1,0 +1,16 @@
+import { ThemeIcon } from 'vs/platform/theme/common/themeService';
+import { TestResultState } from 'vs/workbench/contrib/testing/common/testTypes';
+export declare const testingViewIcon: ThemeIcon;
+export declare const testingRunIcon: ThemeIcon;
+export declare const testingRunAllIcon: ThemeIcon;
+export declare const testingDebugAllIcon: ThemeIcon;
+export declare const testingDebugIcon: ThemeIcon;
+export declare const testingCancelIcon: ThemeIcon;
+export declare const testingFilterIcon: ThemeIcon;
+export declare const testingHiddenIcon: ThemeIcon;
+export declare const testingShowAsList: ThemeIcon;
+export declare const testingShowAsTree: ThemeIcon;
+export declare const testingUpdateProfiles: ThemeIcon;
+export declare const testingRefreshTests: ThemeIcon;
+export declare const testingCancelRefreshTests: ThemeIcon;
+export declare const testingStatesToIcons: Map<TestResultState, ThemeIcon>;

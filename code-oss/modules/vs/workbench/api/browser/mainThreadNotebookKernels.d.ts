@@ -1,0 +1,38 @@
+import { UriComponents } from 'vs/base/common/uri';
+import { ILanguageService } from 'vs/editor/common/languages/language';
+import { IExtHostContext } from 'vs/workbench/services/extensions/common/extHostCustomers';
+import { INotebookEditorService } from 'vs/workbench/contrib/notebook/browser/services/notebookEditorService';
+import { INotebookExecutionStateService } from 'vs/workbench/contrib/notebook/common/notebookExecutionStateService';
+import { INotebookKernelService } from 'vs/workbench/contrib/notebook/common/notebookKernelService';
+import { SerializableObjectWithBuffers } from 'vs/workbench/services/extensions/common/proxyIdentifier';
+import { ICellExecuteUpdateDto, ICellExecutionCompleteDto, INotebookKernelDto2, MainThreadNotebookKernelsShape } from '../common/extHost.protocol';
+import { INotebookService } from 'vs/workbench/contrib/notebook/common/notebookService';
+export declare class MainThreadNotebookKernels implements MainThreadNotebookKernelsShape {
+    private readonly _languageService;
+    private readonly _notebookKernelService;
+    private readonly _notebookExecutionStateService;
+    private readonly _notebookService;
+    private readonly _editors;
+    private readonly _disposables;
+    private readonly _kernels;
+    private readonly _kernelDetectionTasks;
+    private readonly _kernelSourceActionProviders;
+    private readonly _proxy;
+    private readonly _executions;
+    constructor(extHostContext: IExtHostContext, _languageService: ILanguageService, _notebookKernelService: INotebookKernelService, _notebookExecutionStateService: INotebookExecutionStateService, _notebookService: INotebookService, notebookEditorService: INotebookEditorService);
+    dispose(): void;
+    private _onEditorAdd;
+    private _onEditorRemove;
+    $postMessage(handle: number, editorId: string | undefined, message: any): Promise<boolean>;
+    $addKernel(handle: number, data: INotebookKernelDto2): Promise<void>;
+    $updateKernel(handle: number, data: Partial<INotebookKernelDto2>): void;
+    $removeKernel(handle: number): void;
+    $updateNotebookPriority(handle: number, notebook: UriComponents, value: number | undefined): void;
+    $createExecution(handle: number, controllerId: string, rawUri: UriComponents, cellHandle: number): void;
+    $updateExecution(handle: number, data: SerializableObjectWithBuffers<ICellExecuteUpdateDto[]>): void;
+    $completeExecution(handle: number, data: SerializableObjectWithBuffers<ICellExecutionCompleteDto>): void;
+    $addKernelDetectionTask(handle: number, notebookType: string): Promise<void>;
+    $removeKernelDetectionTask(handle: number): void;
+    $addKernelSourceActionProvider(handle: number, notebookType: string): Promise<void>;
+    $removeKernelSourceActionProvider(handle: number): void;
+}
