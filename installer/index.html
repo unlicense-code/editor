@@ -5,7 +5,7 @@ logging is meaning full this solves quircs between the contexts. -->
 const monacoLoaded = new ReadableStream({ start: (controller) => 
   (observer = new MutationObserver((mutationsList, observer) => 
     globalThis.monaco && [ controller.enqueue(globalThis.monaco),
-     observer.disconnect(), controller.close()
+     observer.disconnect(), controller.close() ]
   )).observe(document, { attributes: false, childList: true, subtree: true });
 });
 const loadedScripts = new ReadableStream({ start: (controller) => 
