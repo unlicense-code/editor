@@ -2,7 +2,7 @@
 logging is meaning full this solves quircs between the contexts. -->
 <base href="https://github.lemanschik.com/monaco-editor/node_modules/monaco_editor" />
 <head><script>globalThis.require = { paths: { vs: 
-  'monaco-editor/min/vs/' } };
+  '/min/vs/' } };
 const monacoLoaded = new ReadableStream({ start: (controller) => 
   (observer = new MutationObserver((mutationsList, observer) => 
     globalThis.monaco && [ controller.enqueue(globalThis.monaco),
@@ -59,9 +59,9 @@ function hello() {
 	integrity="sha256-u+l2mGjpmGK/mFgUncmMcFKdMijvV+J3odlDJZSNUu8="
 	crossorigin="anonymous"
 > </script>
-<script src="monaco-editor/min/vs/loader.js"></script>
-<script src="monaco-editor/min/vs/editor/editor.main.nls.js"></script>
-<script src="monaco-editor/min/vs/editor/editor.main.js"></script></head>
+<script src="min/vs/loader.js"></script>
+<script src="min/vs/editor/editor.main.nls.js"></script>
+<script src="min/vs/editor/editor.main.js"></script></head>
 <body><div is="line-parser" style="height: 200px;"></div></body>
   <p>HTML Based Web Installer for @unlicensed-code/editor<p>
   <p>Install Chromium Extension<p>
