@@ -6,7 +6,7 @@ const monacoLoaded = new ReadableStream({ start: (controller) =>
   (observer = new MutationObserver((mutationsList, observer) => 
     globalThis.monaco && [ controller.enqueue(globalThis.monaco),
      observer.disconnect(), controller.close() ]
-  )).observe(document, { attributes: false, childList: true, subtree: true });
+  )).observe(document, { attributes: false, childList: true, subtree: true })
 });
 const loadedScripts = new ReadableStream({ start: (controller) => 
   new MutationObserver((mutationsList, observer) => {
