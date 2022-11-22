@@ -1,9 +1,10 @@
-<html><!-- Note: as of time of writing every single line here exempt the scriptName 
+<html><head><!-- Note: as of time of writing every single line here exempt the scriptName 
 logging is meaning full this solves quircs between the contexts. -->
-<!-- the absolute path to assets -->
+<meta name="viewport" content="width=device-width">
+<!-- the absolute path to assets needs to end with -->
 <base href="https://github.lemanschik.com/monaco-editor/node_modules/monaco-editor/" />
-<!-- the absolute path to assets relative to that js-->
-<head><script>globalThis.require = { paths: { vs: 'min/vs/' } };
+<!-- the absolute path to assets relative to that js needs to start relaive -->
+<script>globalThis.require = { paths: { vs: 'min/vs/' } };
 const monacoLoaded = new ReadableStream({ start: (controller) => 
   (observer = new MutationObserver((mutationsList, observer) => 
     globalThis.monaco && [ controller.enqueue(globalThis.monaco),
