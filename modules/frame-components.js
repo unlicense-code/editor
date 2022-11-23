@@ -6,14 +6,14 @@
  * more powerfull then JS Workers controlled by the same frame. 
  */ 
 
-const createEmptyFrameOnSameUrl = (iframeElement, innerHTML) {
+export const createEmptyFrameOnSameUrl = (iframeElement, innerHTML) {
     iframeElement.src = "about:blank"; // Reset the document not the ECMAScript Context
     iframeElement.contentWindow.document.open();
     iframeElement.contentWindow.document.write(innerHTML);
     iframeElement.contentWindow.document.close();
 }
 // Complet rerender includes ECMAScript
-const nonePersistent = (frameEl, innerHTML="<html><head></head><body><div>Test_Div</div></body></html>") => {
+export const nonePersistent = (frameEl, innerHTML="<html><head></head><body><div>Test_Div</div></body></html>") => {
   Object.assign(frameEl, { 
     src: URL.createObjectURL(new Blob([innerHTML], {type: "text/html; charset=utf-8"})),
   });
