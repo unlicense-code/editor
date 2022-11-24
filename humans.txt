@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+/* TEAM */
+Frank Lemanschik
+Site: https://lemanschik.com
+
+Pete LePage
+Site: https://petelepage.com
+Twitter: @petele
+
+/* THANKS */
+
+	Platform Contributors: team@chromium.org
+
+/* TECHNOLOGY COLOPHON */
+
+  HTML5, CSS3, File System Access APIs, DP Debug Protocol Connection, Web Streams, ECMAScript Modules
