@@ -1,0 +1,1 @@
+{ "type": "module", "name": "code-oss-launch", "version": "0.0.1-pre.0", "private": true, "dependencies": { "puppeteer-core": "npm:puppeteer-core@latest" } }
