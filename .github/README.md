@@ -3,7 +3,9 @@
 ## CodeUP a rollup fork designed to deploy code-oss
 Rollup is a Loader Hook System that is highly flexible it gives you a consistent way to describe build steps that depend on
 a variaty of none pre known dependencies. So it is Ideal to load Legacy code and use it as Packaging Pipeline. It also got
-a lot of Support from existing libs that are coded in a compatible way for this hook system eg vite stuff.
+a lot of Support from existing libs that are coded in a compatible way for this hook system eg vite stuff. It is mainly a
+drop in Replacement for Stackblitz. This enables you to deploy Stackblitz like workspaces but in a more optimized way.
+You can see it as the Open Source Successor. 
 
 ## chromium-fs 
 A Collection of FileManagement Tools for the Chromium Platform
